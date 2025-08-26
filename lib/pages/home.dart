@@ -1,4 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/server.dart';
+import 'package:portfolio_site/components/home/article_section.dart';
+import 'package:portfolio_site/components/home/contact_section.dart';
+import 'package:portfolio_site/components/home/hero_section.dart';
+import 'package:portfolio_site/components/home/projects_section.dart';
+import 'package:portfolio_site/components/home/services_section.dart';
+import 'package:portfolio_site/components/home/technologies_section.dart';
+import 'package:portfolio_site/services/remote/remote_service.dart';
 
 // By using the @client annotation this component will be automatically compiled to javascript and mounted
 // on the client. Therefore:
@@ -6,52 +13,19 @@ import 'package:jaspr/jaspr.dart';
 // - this component and any child components will be built once on the server during pre-rendering and then
 //   again on the client during normal rendering.
 
-@client
-class Home extends StatelessComponent {
+class Home extends AsyncStatelessComponent {
   const Home({super.key});
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield section(
-      classes: 'hero-container', // Uses your CSS class
-      [
-        div(
-          classes: 'hero-content', // Uses your CSS class
-          [
-            h1(
-              classes: 'hero-title', // Uses your CSS class
-              [text('Gozie Ihejirika')],
-            ),
-            h2(
-              classes: 'hero-subtitle', // Uses your CSS class
-              [text('Mobile Developer')],
-            ),
-            p(
-              classes: 'hero-description', // Uses your CSS class
-              [
-                text(
-                    'Passionate mobile developer crafting beautiful, performant mobile applications with Flutter.')
-              ],
-            ),
-            a(
-              href: '/projects',
-              classes: 'cta-button', // Uses your CSS class
-              [text('View My Work')],
-            ),
-          ],
-        ),
-        div(
-          classes: 'hero-image', // Uses your CSS class
-          [
-            img(
-              classes: 'hero-avatar', // Uses your CSS class
-              src: '/images/avatar.svg',
-              alt: 'Gozie Ihejirika Avatar',
-              // classes: 'w-full h-full object-cover', // Fill the container completely
-            ),
-          ],
-        ),
-      ],
-    );
+  Stream<Component> build(BuildContext context) async* {
+    final projects = await RemoteService().getProjects();
+    final articles = await RemoteService().getArticles();
+    
+    yield HeroSection();
+    yield ServicesSection();
+    yield TechnologiesSection();
+    yield ProjectsSection(projects: projects);
+    yield ArticlesSection(articles: articles);
+    yield ContactSection();
   }
 }

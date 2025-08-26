@@ -29,17 +29,9 @@ class CounterState extends State<Counter> {
         [text('+')],
       ),
     ]);
-
-  //   yield EmbeddedCounter(
-  //     count: count,
-  //     onChange: (value) {
-  //       setState(() => count = value);
-  //     },
-  //   );
   }
 
-  @css
-  static final styles = [
+  static get styles => [
     css('.counter', [
       css('&').styles(
         display: Display.flex,
@@ -51,11 +43,11 @@ class CounterState extends State<Counter> {
         css('&').styles(
           display: Display.flex,
           width: 2.em,
-          height: 2.em, 
-          border: Border.unset, 
+          height: 2.em,
+          border: Border.unset,
           radius: BorderRadius.all(Radius.circular(2.em)),
           cursor: Cursor.pointer,
-          justifyContent: JustifyContent.center, 
+          justifyContent: JustifyContent.center,
           alignItems: AlignItems.center,
           fontSize: 2.rem,
           backgroundColor: Colors.transparent,
@@ -67,8 +59,8 @@ class CounterState extends State<Counter> {
       css('span').styles(
         minWidth: 2.5.em,
         padding: Padding.symmetric(horizontal: 2.rem),
-        boxSizing: BoxSizing.borderBox, 
-        color: primaryColor, 
+        boxSizing: BoxSizing.borderBox,
+        color: primaryColor,
         textAlign: TextAlign.center,
         fontSize: 4.rem,
       ),

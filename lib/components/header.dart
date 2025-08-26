@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:jaspr_router/jaspr_router.dart';
-import 'package:portfolio_site/config/app_config.dart';
+import 'package:portfolio_site/components/ui/theme_toggle_button.dart';
+import 'package:portfolio_site/config/site_config.dart';
 import 'package:portfolio_site/main.dart';
 import 'package:portfolio_site/providers/theme_providers.dart';
+import 'package:universal_web/web.dart' as web;
 
 @client
 class Header extends StatefulComponent {
@@ -15,11 +18,50 @@ class Header extends StatefulComponent {
 
 class _HeaderState extends State<Header> {
   bool _isMenuOpen = false;
+  bool _isAtTop = true;
+  StreamSubscription<web.Event>? _scrollSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    if (kIsWeb) {
+      _setupScrollListener();
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollSubscription?.cancel();
+    super.dispose();
+  }
+
+  void _setupScrollListener() {
+    _scrollSubscription = web.EventStreamProviders.scrollEvent
+        .forTarget(
+          web.window,
+        )
+        .listen(_handleScroll);
+  }
+
+  void _handleScroll(web.Event event) {
+    final scrollTop = web.window.scrollY;
+    final wasAtTop = _isAtTop;
+    final nowAtTop = scrollTop <= 0;
+
+    // Only setState if the state actually changed
+    if (wasAtTop != nowAtTop) {
+      setState(() {
+        _isAtTop = nowAtTop;
+      });
+    }
+  }
 
   void _toggleMenu() {
-    setState(() {
-      _isMenuOpen = !_isMenuOpen;
-    });
+    setState(() => _isMenuOpen = !_isMenuOpen);
+  }
+
+  String get _headerClass {
+    return _isAtTop ? 'at-top' : 'scrolled';
   }
 
   @override
@@ -29,56 +71,54 @@ class _HeaderState extends State<Header> {
     yield ProviderScope(
       parent: container,
       child: Builder(
-        builder: (context) sync*{
+        builder: (context) sync* {
           // Watch theme state for the toggle button
           final themeMode = context.watch(themeProvider);
           final isDark = context.watch(isDarkProvider);
-          
+          final notifier = context.read(themeProvider.notifier);
+
           yield header(
-            classes: 'navbar',
+            id: 'main-header', // Important: ID for JS targeting
+            classes: [
+              'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+              _headerClass, // Dynamic classes from JavaScript
+            ].join(' '),
             [
               div(
-                classes: 'nav-container',
+                classes: 'container mx-auto px-4 sm:px-6 lg:px-8',
                 [
-                  // Logo
-                  Link(
-                    to: '/',
-                    child: div(
-                      classes: 'logo group',
-                      [text('Gozie Ihejirika')],
-                    ),
-                  ),
-
-                  // Desktop navigation
-                  nav(
-                    classes: 'hidden md:flex',
+                  div(
+                    classes: 'flex items-center justify-between h-16',
                     [
-                      ul(
-                        classes: 'nav-links',
+                      // Logo with enhanced styling
+                      _buildLogo(),
+
+                      // Desktop navigation
+                      _buildDesktopNavigation(activePath),
+
+                      // Right side controls
+                      div(
+                        classes: 'flex items-center space-x-4',
                         [
-                          for (var entry in SiteConfig.navLinks.entries)
-                            li([_buildNavLink(entry.key, entry.value, activePath)]),
+                          // Enhanced theme toggle
+                          if (kIsWeb)
+                            SlidingThemeToggle(
+                              themeMode: themeMode,
+                              isDark: isDark,
+                              onToggle: notifier.toggleTheme,
+                            ),
+
+                          // Enhanced mobile menu button
+                          _buildMobileMenuButton(),
                         ],
                       ),
                     ],
                   ),
 
-                  // Right side controls
-                  div(
-                    classes: 'flex items-center gap-3 md:gap-4',
-                    [
-                      // Theme toggle with proper state reflection
-                      _buildThemeToggle(context, themeMode, isDark),
-
-                      // Mobile menu button
-                      _buildMobileMenuButton(),
-                    ],
-                  ),
+                  // Enhanced mobile menu
+                  _buildMobileMenu(activePath),
                 ],
               ),
-
-              // Mobile menu
-              _buildMobileMenu(activePath),
             ],
           );
         },
@@ -86,60 +126,54 @@ class _HeaderState extends State<Header> {
     );
   }
 
-  Component _buildThemeToggle(BuildContext context, ThemeMode themeMode, bool isDark) {
-    // Determine the icon and tooltip based on current theme
-    String icon;
-    String tooltip;
-    
-    switch (themeMode) {
-      case ThemeMode.light:
-        icon = '☀️';
-        tooltip = 'Switch to dark mode';
-        break;
-      case ThemeMode.dark:
-        icon = '🌙';
-        tooltip = 'Switch to light mode';
-        break;
-      case ThemeMode.system:
-        icon = isDark ? '🌙' : '☀️';
-        tooltip = 'Using system theme';
-        break;
-    }
+  Component _buildLogo() {
+    return Link(
+      to: '/',
+      child: div(
+        classes: 'flex-shrink-0',
+        [
+          span(
+            classes: 'text-2xl font-bold font-display gradient-text hover-scale',
+            [text('Gozie')],
+          ),
+        ],
+      ),
+    );
+  }
 
-    return button(
-      classes: 'theme-toggle', // Use the correct CSS class
-      attributes: {
-        'title': tooltip,
-        'aria-label': tooltip,
-      },
-      events: {
-        'click': (event) {
-          context.read(themeProvider.notifier).toggleTheme();
-        }
-      },
+  Component _buildDesktopNavigation(String activePath) {
+    return nav(
+      classes: 'hidden md:flex items-center space-x-8',
       [
-        span(
-          classes: 'text-lg md:text-xl transition-transform duration-200 hover:scale-110',
-          [text(icon)],
-        ),
+        for (var entry in SiteConfig.navLinks.entries)
+          _buildDesktopNavLink(entry.key, entry.value, activePath),
       ],
     );
   }
 
-  Component _buildNavLink(String label, String href, String activePath) {
+  Component _buildDesktopNavLink(String label, String href, String activePath) {
     final isActive = activePath == href;
 
     return a(
-      classes: 'nav-link ${isActive ? 'active' : ''}',
-      href: href,
-      [text(label)],
+      classes:
+          'text-foreground/80 hover:text-primary transition-colors duration-300 font-medium relative group',
+      href: isActive ? 'javascript:void(0)' : href,
+      [
+        text(label),
+        // Animated underline
+        span(
+          classes:
+              'absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300 ${isActive ? 'w-full' : ''}',
+          [],
+        ),
+      ],
     );
   }
 
   Component _buildMobileMenuButton() {
     return button(
       classes:
-          'md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 theme-transition focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-200',
+          'md:hidden p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-secondary-foreground hover-scale transition-all duration-300 border border-border/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary/50',
       attributes: {
         'aria-label': _isMenuOpen ? 'Close menu' : 'Open menu',
         'aria-expanded': _isMenuOpen.toString(),
@@ -176,23 +210,24 @@ class _HeaderState extends State<Header> {
   }
 
   Component _buildMobileMenu(String activePath) {
-    return div(
-      classes:
-          'md:hidden transition-all duration-300 ease-in-out ${_isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}',
-      attributes: {
-        'aria-hidden': (!_isMenuOpen).toString(),
-      },
-      [
-        div(
-          classes:
-              'px-4 pt-2 pb-4 space-y-1 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 theme-transition',
-          [
-            for (var entry in SiteConfig.navLinks.entries)
-              _buildMobileNavLink(entry.key, entry.value, activePath),
-          ],
-        ),
-      ],
-    );
+    return _isMenuOpen
+        ? div(
+            classes:
+                'md:hidden absolute top-16 left-0 right-0 glass border-t border-border animate-fade-in-down',
+            attributes: {
+              'aria-hidden': (!_isMenuOpen).toString(),
+            },
+            [
+              nav(
+                classes: 'px-4 py-6 space-y-4',
+                [
+                  for (var entry in SiteConfig.navLinks.entries)
+                    _buildMobileNavLink(entry.key, entry.value, activePath),
+                ],
+              ),
+            ],
+          )
+        : div(classes: 'hidden', []);
   }
 
   Component _buildMobileNavLink(String label, String href, String activePath) {
@@ -200,8 +235,8 @@ class _HeaderState extends State<Header> {
 
     return a(
       classes:
-          'block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${isActive ? 'text-purple-500 bg-purple-50 dark:bg-purple-500/10 border-l-4 border-purple-500' : 'text-gray-700 dark:text-gray-300 hover:text-purple-500 hover:bg-purple-50 dark:hover:bg-purple-500/10 theme-transition active:bg-purple-100 dark:active:bg-purple-500/20'}',
-      href: href,
+          'block text-foreground/80 hover:text-primary transition-colors duration-300 font-medium py-2 px-4 rounded-lg hover:bg-secondary/50 ${isActive ? 'text-primary bg-primary/10' : ''}',
+      href: isActive ? 'javascript:void(0)' : href,
       events: {
         'click': (e) => setState(() => _isMenuOpen = false),
       },

@@ -5,9 +5,13 @@
 // Generated with jaspr_builder
 
 import 'package:jaspr/jaspr.dart';
-import 'package:portfolio_site/components/header.dart' as prefix0;
-import 'package:portfolio_site/pages/contact.dart' as prefix1;
-import 'package:portfolio_site/pages/home.dart' as prefix2;
+import 'package:portfolio_site/components/contact/contact_form.dart' as prefix0;
+import 'package:portfolio_site/components/home/client/scroll_to_next.dart'
+    as prefix1;
+import 'package:portfolio_site/components/projects/projects_view.dart'
+    as prefix2;
+import 'package:portfolio_site/components/header.dart' as prefix3;
+import 'package:portfolio_site/components/scroll_to_top_button.dart' as prefix4;
 
 /// Default [JasprOptions] for use with your jaspr project.
 ///
@@ -27,11 +31,34 @@ import 'package:portfolio_site/pages/home.dart' as prefix2;
 /// ```
 JasprOptions get defaultJasprOptions => JasprOptions(
   clients: {
-    prefix0.Header: ClientTarget<prefix0.Header>('components/header'),
+    prefix0.ContactFormCard: ClientTarget<prefix0.ContactFormCard>(
+      'components/contact/contact_form',
+    ),
 
-    prefix1.ContactPage: ClientTarget<prefix1.ContactPage>('pages/contact'),
+    prefix3.Header: ClientTarget<prefix3.Header>('components/header'),
 
-    prefix2.Home: ClientTarget<prefix2.Home>('pages/home'),
+    prefix1.ScrollToNextSection: ClientTarget<prefix1.ScrollToNextSection>(
+      'components/home/client/scroll_to_next',
+    ),
+
+    prefix2.ProjectsView: ClientTarget<prefix2.ProjectsView>(
+      'components/projects/projects_view',
+      params: _prefix2ProjectsView,
+    ),
+
+    prefix4.ScrollToTopButton: ClientTarget<prefix4.ScrollToTopButton>(
+      'components/scroll_to_top_button',
+      params: _prefix4ScrollToTopButton,
+    ),
   },
   styles: () => [],
 );
+
+Map<String, dynamic> _prefix2ProjectsView(prefix2.ProjectsView c) => {
+  'projects': c.projects.map((i) => i.toJson()).toList(),
+};
+Map<String, dynamic> _prefix4ScrollToTopButton(prefix4.ScrollToTopButton c) => {
+  'showAtViewportFraction': c.showAtViewportFraction,
+  'scrollDurationMs': c.scrollDurationMs,
+  'customClasses': c.customClasses,
+};

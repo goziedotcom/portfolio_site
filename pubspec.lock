@@ -149,10 +149,10 @@ packages:
     dependency: transitive
     description:
       name: characters
-      sha256: faf38497bda5ead2a8c7615f4f7939df04333478bf32e4173fcb06d428b5716b
+      sha256: f71061c654a3380576a52b451dd5532377954cf9dbd272a78fc8479606670803
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.1"
+    version: "1.4.0"
   checked_yaml:
     dependency: transitive
     description:
@@ -265,6 +265,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      sha256: "253a18bbd4851fecba42f7343a1df3a9a4c1d31a2c1b37e221086b4fa8c8dbc9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.8.0+1"
+  dio_web_adapter:
+    dependency: transitive
+    description:
+      name: dio_web_adapter
+      sha256: "7586e476d70caecaf1686d21eee7247ea43ef5c345eab9e0cc3583ff13378d78"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   fbh_front_matter:
     dependency: transitive
     description:
@@ -430,6 +446,14 @@ packages:
     description:
       name: jaspr_lints
       sha256: "70f6b5cbb3a3cdd42f06bd617d4e26eaa31626bf1717ccf65cf97a3e41e9c28d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
+  jaspr_lucide:
+    dependency: "direct main"
+    description:
+      name: jaspr_lucide
+      sha256: "1107808b6b802dfc0a128fd382e4d2afa4afd1537f213ae730445a9651a27a4b"
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0"
@@ -841,6 +865,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      sha256: b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.5.0"
   yaml:
     dependency: transitive
     description:
@@ -850,4 +882,4 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.7.0 <3.9.0-z"
+  dart: ">=3.7.2 <3.9.0-z"

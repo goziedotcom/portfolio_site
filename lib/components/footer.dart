@@ -1,56 +1,107 @@
 import 'package:jaspr/jaspr.dart';
+import 'package:portfolio_site/config/site_config.dart';
 
 class Footer extends StatelessComponent {
   const Footer({super.key});
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    final currentYear = DateTime.now().year;
 
     yield footer(
-      classes: 'bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 theme-transition',
+      classes:
+          'border-t border-border/50 py-8 bg-card/50 backdrop-blur-sm transition-colors duration-300',
       [
         div(
-          classes: 'max-w-6xl mx-auto px-8 py-8',
+          classes: 'container mx-auto px-4 sm:px-6 lg:px-8',
           [
             div(
-              classes: 'flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0',
+              classes: 'flex flex-col md:flex-row items-center justify-between gap-4',
               [
-                // Copyright
-                p(
-                  classes: 'text-gray-600 dark:text-gray-400 text-sm theme-transition',
+                // Copyright section
+                div(
+                  classes: 'text-center md:text-left',
                   [
-                    text('© $currentYear '),
-                    span(
-                      classes: 'font-medium',
-                      [text("Gozie Ihejirika")],
+                    p(
+                      classes: 'text-muted-foreground transition-colors duration-300',
+                      [text(SiteConfig.footerText)],
                     ),
-                    text('. All rights reserved.'),
                   ],
                 ),
 
-                // Built with love
+                // Made with love section - enhanced
                 div(
-                  classes: 'flex items-center text-sm text-gray-600 dark:text-gray-400 theme-transition',
+                  classes:
+                      'flex items-center gap-2 text-muted-foreground transition-colors duration-300',
                   [
-                    text('Built with '),
+                    span([text('Made with')]),
+
+                    // Heart icon with enhanced animation
                     span(
-                      classes: 'text-red-500 animate-pulse mx-1',
-                      [text('❤️')],
+                      classes: 'text-red-500 animate-pulse relative',
+                      attributes: {'aria-label': 'love', 'title': 'Made with love'},
+                      [
+                        // Using emoji heart with pulse glow effect
+                        span(
+                          classes: 'inline-block hover:scale-110 transition-transform duration-300',
+                          [text('❤️')],
+                        ),
+                      ],
                     ),
-                    text(' using '),
+
+                    span([text('using')]),
+
+                    // Jaspr link with enhanced styling
                     a(
-                      classes: 'text-purple-500 hover:text-purple-400 font-medium transition-colors duration-300 mx-1',
-                      href: 'https://github.com/schultek/jaspr',
+                      classes:
+                          'font-medium text-primary hover:text-primary-glow transition-all duration-300 hover:scale-105 relative group',
+                      href: 'https://jaspr.site/',
                       target: Target.blank,
-                      [text('Jaspr')],
+                      attributes: {'rel': 'noopener noreferrer', 'title': 'Visit Jaspr framework'},
+                      [
+                        text('Jaspr'),
+                        // Subtle underline effect
+                        span(
+                          classes:
+                              'absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300',
+                          [],
+                        ),
+                      ],
                     ),
-                    text(' and '),
+
+                    span([text('&')]),
+
+                    // Tailwind link with enhanced styling
                     a(
-                      classes: 'text-purple-500 hover:text-purple-400 font-medium transition-colors duration-300 ml-1',
+                      classes:
+                          'font-medium text-primary hover:text-primary-glow transition-all duration-300 hover:scale-105 relative group',
                       href: 'https://tailwindcss.com',
                       target: Target.blank,
-                      [text('Tailwind CSS')],
+                      attributes: {'rel': 'noopener noreferrer', 'title': 'Visit Tailwind CSS'},
+                      [
+                        text('Tailwind'),
+                        // Subtle underline effect
+                        span(
+                          classes:
+                              'absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300',
+                          [],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            // Optional: Add a subtle decorative element
+            div(
+              classes: 'mt-6 pt-4 border-t border-border/30',
+              [
+                div(
+                  classes: 'flex justify-center',
+                  [
+                    div(
+                      classes: 'w-12 h-0.5 bg-gradient-primary rounded-full opacity-50',
+                      [],
                     ),
                   ],
                 ),

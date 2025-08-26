@@ -1,39 +1,76 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ["class"],
   content: [
-    "./web/**/*.{html,js,dart}",
     "./lib/**/*.dart",
-    "./bin/**/*.dart"
+    "./web/**/*.html",
+    "./web/**/*.js",
+    // Add any other Jaspr-specific paths where you use Tailwind classes
   ],
+  prefix: "",
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1400px'
+      }
+    },
     extend: {
       colors: {
-        // Custom CSS variable-based colors that adapt to light/dark mode
-        'bg-primary': 'var(--bg-primary)',
-        'bg-secondary': 'var(--bg-secondary)',
-        'bg-card': 'var(--bg-card)',
-        'text-primary': 'var(--text-primary)',
-        'text-secondary': 'var(--text-secondary)',
-        'accent-purple': 'var(--accent-purple)',
-        'accent-purple-hover': 'var(--accent-purple-hover)',
-        'border-color': 'var(--border-color)',
-        
-        // Enhanced purple variations
-        purple: {
-          50: '#faf5ff',
-          100: '#f3e8ff',
-          200: '#e9d5ff',
-          300: '#d8b4fe',
-          400: '#c084fc',
-          500: '#a855f7',
-          600: '#9333ea',
-          700: '#7c3aed',
-          800: '#6b21a8',
-          900: '#581c87',
-          950: '#3b0764',
+        // New HSL-based color system
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+          glow: 'hsl(var(--primary-glow))'
         },
-        
-        // Enhanced gray scale for better light/dark mode support
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))'
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))'
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))'
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))'
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))'
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))'
+        },
+
+        // Legacy color support (for backward compatibility)
+        purple: {
+          50: '#f3e8ff',
+          100: '#e9d5ff',
+          200: '#d6bcfa',
+          300: '#c084fc',
+          400: '#a855f7',
+          500: '#8b5cf6',
+          600: '#7c3aed',
+          700: '#6d28d9',
+          800: '#5b21b6',
+          900: '#4c1d95'
+        },
         gray: {
           50: '#f9fafb',
           100: '#f3f4f6',
@@ -44,245 +81,143 @@ module.exports = {
           600: '#4b5563',
           700: '#374151',
           800: '#1f2937',
-          900: '#111827',
-          950: '#0a0a0a',
-        },
-        
-        // Light mode specific colors
-        light: {
-          bg: '#ffffff',
-          surface: '#f8fafc',
-          border: '#e2e8f0',
-          text: '#1e293b',
-          'text-secondary': '#64748b',
-        },
-        
-        // Dark mode specific colors
-        dark: {
-          bg: '#0a0a0a',
-          surface: '#1f1f1f',
-          border: '#333333',
-          text: '#ffffff',
-          'text-secondary': '#b0b0b0',
+          900: '#111827'
         }
       },
-      
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-secondary': 'var(--gradient-secondary)',
+        'gradient-accent': 'var(--gradient-accent)',
+        // Legacy gradient support
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+      },
+      boxShadow: {
+        'purple': 'var(--shadow-purple)',
+        'glow': 'var(--shadow-glow)',
+        'card': 'var(--shadow-card)',
+        // Legacy shadow support
+        'light': '0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1)',
+        'light-lg': '0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)',
+        'dark': '0 4px 6px rgba(139, 92, 246, 0.1), 0 1px 3px rgba(139, 92, 246, 0.05)',
+        'dark-lg': '0 15px 35px rgba(139, 92, 246, 0.1)'
+      },
       fontFamily: {
-        'sans': ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+        'sans': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        'display': ['Space Grotesk', 'system-ui', 'sans-serif'],
+        'mono': ['Fira Code', 'Monaco', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', 'monospace']
       },
-      
       fontSize: {
-        'hero': ['3.5rem', { lineHeight: '1.2' }],
-        'hero-lg': ['4rem', { lineHeight: '1.1' }],
-        'hero-subtitle': ['1.8rem', { lineHeight: '1.4' }],
+        'xs': ['0.75rem', { lineHeight: '1rem' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
+        'base': ['1rem', { lineHeight: '1.5rem' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        '5xl': ['3rem', { lineHeight: '1' }],
+        '6xl': ['3.75rem', { lineHeight: '1' }],
+        '7xl': ['4.5rem', { lineHeight: '1' }],
+        '8xl': ['6rem', { lineHeight: '1' }],
+        '9xl': ['8rem', { lineHeight: '1' }]
       },
-      
       spacing: {
         '18': '4.5rem',
-        '72': '18rem',
-        '84': '21rem',
-        '96': '24rem',
+        '88': '22rem',
+        '128': '32rem'
       },
-      
       borderRadius: {
-        'xl': '1rem',
-        '2xl': '1.5rem',
-        '3xl': '2rem',
+        'lg': 'var(--radius)',
+        'md': 'calc(var(--radius) - 2px)', 
+        'sm': 'calc(var(--radius) - 4px)',
+        'web3': '0.375rem', // Site button radius
       },
-      
-      boxShadow: {
-        'purple': '0 4px 15px rgba(139, 92, 246, 0.3)',
-        'purple-lg': '0 8px 25px rgba(139, 92, 246, 0.4)',
-        'purple-glow': '0 0 50px rgba(139, 92, 246, 0.3)',
-        'card': '0 15px 35px rgba(139, 92, 246, 0.1)',
-        'card-light': '0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1)',
-        'card-light-lg': '0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)',
-        'card-dark': '0 4px 6px rgba(139, 92, 246, 0.1), 0 1px 3px rgba(139, 92, 246, 0.05)',
-        'card-dark-lg': '0 15px 35px rgba(139, 92, 246, 0.1)',
+      transitionTimingFunction: {
+        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
       },
-      
-      backgroundImage: {
-        'gradient-primary': 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)',
-        'gradient-bg-light': 'linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(167, 139, 250, 0.03) 100%)',
-        'gradient-bg-dark': 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(167, 139, 250, 0.05) 100%)',
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'pattern-light': 'radial-gradient(circle at 25% 25%, rgba(139, 92, 246, 0.03) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(167, 139, 250, 0.015) 0%, transparent 50%)',
-        'pattern-dark': 'radial-gradient(circle at 25% 25%, rgba(139, 92, 246, 0.1) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(167, 139, 250, 0.05) 0%, transparent 50%)',
-      },
-      
-      animation: {
-        'float': 'float 3s ease-in-out infinite',
-        'fade-in-up': 'fadeInUp 1s ease-out',
-        'fade-in-down': 'fadeInDown 1s ease-out',
-        'slide-in-left': 'slideInLeft 0.8s ease-out',
-        'slide-in-right': 'slideInRight 0.8s ease-out',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'theme-transition': 'themeTransition 0.3s ease',
-      },
-      
       keyframes: {
-        float: {
+        // Accordion animations (for forms and UI)
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' }
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' }
+        },
+        // Enhanced animations
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        },
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        'fade-in-down': {
+          '0%': { opacity: '0', transform: 'translateY(-10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        'slide-up': {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0)' }
+        },
+        'slide-down': {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(0)' }
+        },
+        'bounce-in': {
+          '0%': { opacity: '0', transform: 'scale(0.3)' },
+          '50%': { opacity: '1', transform: 'scale(1.05)' },
+          '70%': { transform: 'scale(0.9)' },
+          '100%': { opacity: '1', transform: 'scale(1)' }
+        },
+        'float': {
           '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
+          '50%': { transform: 'translateY(-20px)' }
         },
-        fadeInUp: {
-          '0%': {
-            opacity: '0',
-            transform: 'translateY(30px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0)',
-          },
+        'pulse-glow': {
+          '0%': { boxShadow: '0 0 20px hsl(var(--primary) / 0.4)' },
+          '100%': { boxShadow: '0 0 40px hsl(var(--primary) / 0.8), 0 0 60px hsl(var(--accent) / 0.6)' }
         },
-        fadeInDown: {
-          '0%': {
-            opacity: '0',
-            transform: 'translateY(-30px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0)',
-          },
+        'shimmer': {
+          '0%': { backgroundPosition: '-200% center' },
+          '100%': { backgroundPosition: '200% center' }
         },
-        slideInLeft: {
-          '0%': {
-            opacity: '0',
-            transform: 'translateX(-30px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateX(0)',
-          },
+        'typing': {
+          'from': { width: '0' },
+          'to': { width: '100%' }
         },
-        slideInRight: {
-          '0%': {
-            opacity: '0',
-            transform: 'translateX(30px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateX(0)',
-          },
-        },
-        themeTransition: {
-          '0%': { opacity: '0.8' },
-          '100%': { opacity: '1' },
-        },
+        'blink': {
+          '50%': { borderColor: 'transparent' }
+        }
       },
-      
-      backdropBlur: {
-        xs: '2px',
-      },
-      
-      transitionProperty: {
-        'height': 'height',
-        'spacing': 'margin, padding',
-      },
-      
-      screens: {
-        'xs': '475px',
-        '3xl': '1600px',
-      },
-      
-      maxWidth: {
-        '8xl': '88rem',
-        '9xl': '96rem',
-      },
-      
-      zIndex: {
-        '60': '60',
-        '70': '70',
-        '80': '80',
-        '90': '90',
-        '100': '100',
-      },
-    },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'fade-in': 'fade-in 0.6s ease-out',
+        'fade-in-up': 'fade-in-up 0.6s ease-out',
+        'fade-in-down': 'fade-in-down 0.6s ease-out',
+        'slide-up': 'slide-up 0.6s ease-out',
+        'slide-down': 'slide-down 0.6s ease-out',
+        'bounce-in': 'bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+        'float': 'float 6s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 2s ease-in-out infinite alternate',
+        'shimmer': 'shimmer 2s linear infinite',
+        'typing': 'typing 3s steps(30, end), blink 0.75s step-end infinite',
+        'spin-slow': 'spin 3s linear infinite',
+        'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite'
+      }
+    }
   },
   plugins: [
-    // Custom plugin for additional utilities
-    function({ addUtilities, addComponents, theme }) {
-      const newUtilities = {
-        '.gradient-text': {
-          background: theme('backgroundImage.gradient-primary'),
-          '-webkit-background-clip': 'text',
-          '-webkit-text-fill-color': 'transparent',
-          'background-clip': 'text',
-        },
-        '.glass-effect': {
-          'backdrop-filter': 'blur(10px)',
-          '-webkit-backdrop-filter': 'blur(10px)',
-        },
-        '.glass-effect-light': {
-          'background': 'rgba(255, 255, 255, 0.95)',
-          'backdrop-filter': 'blur(10px)',
-          '-webkit-backdrop-filter': 'blur(10px)',
-        },
-        '.glass-effect-dark': {
-          'background': 'rgba(26, 26, 26, 0.95)',
-          'backdrop-filter': 'blur(10px)',
-          '-webkit-backdrop-filter': 'blur(10px)',
-        },
-        '.scrollbar-hide': {
-          '-ms-overflow-style': 'none',
-          'scrollbar-width': 'none',
-          '&::-webkit-scrollbar': {
-            display: 'none',
-          },
-        },
-        '.theme-transition': {
-          'transition': 'background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease',
-        },
-        '.bg-pattern-light': {
-          'background-image': theme('backgroundImage.pattern-light'),
-        },
-        '.bg-pattern-dark': {
-          'background-image': theme('backgroundImage.pattern-dark'),
-        },
-      }
-      
-      const newComponents = {
-        '.theme-toggle-button': {
-          '@apply p-3 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md': {},
-        },
-        '.card-theme': {
-          '@apply bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 theme-transition': {},
-        },
-        '.text-theme-primary': {
-          '@apply text-gray-900 dark:text-white theme-transition': {},
-        },
-        '.text-theme-secondary': {
-          '@apply text-gray-700 dark:text-gray-400 theme-transition': {},
-        },
-        '.nav-theme': {
-          '@apply bg-white/95 dark:bg-gray-900/95 border-gray-200 dark:border-gray-700 theme-transition': {},
-        },
-      }
-      
-      addUtilities(newUtilities, ['responsive', 'hover', 'dark'])
-      addComponents(newComponents)
-    },
-  ],
-  
-  // Dark mode configuration
-  darkMode: 'class',
-  
-  // Prefix for all Tailwind classes (optional)
-  // prefix: 'tw-',
-  
-  // Important modifier (use with caution)
-  // important: true,
-  
-  // Separator for variant prefixes
-  separator: ':',
-  
-  // Core plugins configuration
-  corePlugins: {
-    // Disable preflight if you want to keep your existing CSS reset
-    // preflight: false,
+    // Add tailwindcss-animate if you want to use it for enhanced animations
+    // require("tailwindcss-animate"),
     
-    // You can disable specific core plugins here if needed
-    // container: false,
-  },
-}
+    // Add any other Tailwind plugins you need for forms, etc.
+    // require("@tailwindcss/forms"),
+    // require("@tailwindcss/typography"),
+  ]
+};

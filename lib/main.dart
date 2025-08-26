@@ -6,6 +6,7 @@
 // Server-specific jaspr import.
 import 'package:jaspr/server.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
+import 'package:portfolio_site/config/site_config.dart';
 
 // Imports the [App] component.
 import 'app.dart';
@@ -24,11 +25,17 @@ void main() {
   // [Document] renders the root document structure (<html>, <head> and <body>)
   // with the provided parameters and components.
   runApp(Document(
-    title: 'portfolio_site',
+    title: SiteConfig.siteName,
+    // Meta tags
+    meta: SiteConfig.getMetaData,
     head: [
-      // The generated flutter manifest and bootstrap script.
+      ...SiteConfig.faviconLinks, // Favicon links
+
+      // JS and CSS files
+      script(src: "js/init.js", async: false, []),
+      script(src: 'js/custom_scroll.js', []),
       link(href: 'styles.css', rel: 'stylesheet'),
-      script(src: "flutter_bootstrap.js", async: true, []),
+      link(href: SiteConfig.siteUrl, rel: 'canonical'), // Canonical Site URL
     ],
     body: ProviderScope(
       parent: container,
