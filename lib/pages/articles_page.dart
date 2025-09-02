@@ -2,18 +2,16 @@
 // ARTICLES PAGE
 // ============================================================================
 
-import 'package:jaspr/server.dart';
-// import 'package:portfolio_site/components/ui/button.dart';
-// import 'package:portfolio_site/components/ui/card.dart';
+import 'package:jaspr/jaspr.dart';
 import 'package:portfolio_site/components/article/components.dart';
-import 'package:portfolio_site/services/remote/remote_service.dart';
+import 'package:portfolio_site/models/article_model.dart';
 
-class ArticlesPage extends AsyncStatelessComponent {
-  const ArticlesPage({super.key});
+class ArticlesPage extends StatelessComponent {
+  const ArticlesPage({super.key, required this.articles});
+  final List<Article> articles;
 
   @override
-  Stream<Component> build(BuildContext context) async* {
-    final allArticles = await RemoteService().getArticles();
+  Iterable<Component> build(BuildContext context) sync* {
 
     yield div(
       classes: 'pt-24 pb-16',
@@ -29,7 +27,7 @@ class ArticlesPage extends AsyncStatelessComponent {
 
                 // Articles Grid
                 FeaturedArticlesGrid(
-                  articles: allArticles,
+                  articles: articles,
                 ),
 
                 // Newsletter CTA

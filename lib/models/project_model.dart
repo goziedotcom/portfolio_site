@@ -2,7 +2,7 @@
 // MODEL
 // ============================================================================
 
-import 'package:jaspr/server.dart';
+import 'package:jaspr/jaspr.dart';
 
 class Project {
   final String id;

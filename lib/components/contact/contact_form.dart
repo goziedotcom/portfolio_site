@@ -8,7 +8,7 @@ import 'package:portfolio_site/components/ui/select_dropdown.dart';
 import 'package:portfolio_site/models/contact_model.dart';
 import 'package:universal_web/web.dart' as web;
 
-@client
+// @client
 class ContactFormCard extends StatefulComponent {
   const ContactFormCard();
 

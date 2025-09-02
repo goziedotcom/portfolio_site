@@ -1,4 +1,4 @@
-import 'package:jaspr/server.dart';
+import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'package:portfolio_site/components/projects/alt_featured_project.dart';
 import 'package:portfolio_site/components/ui/button.dart';

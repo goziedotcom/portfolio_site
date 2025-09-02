@@ -1,4 +1,4 @@
-import 'package:jaspr/server.dart';
+import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/generated_icons/external_link.dart' show externalLink;
 import 'package:jaspr_lucide/generated_icons/github.dart' show github;
 import 'package:jaspr_router/jaspr_router.dart';

@@ -93,7 +93,7 @@ class HeroSection extends StatelessComponent {
               [
                 span(
                   classes: 'typing-animation',
-                  [text('Mobile Developer & Flutter Expert')],
+                  [text('Mobile Developer & Instructor')],
                 ),
               ],
             ),

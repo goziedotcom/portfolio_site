@@ -1,4 +1,3 @@
-
 // ============================================================================
 // CONTACT MODELS
 // ============================================================================
@@ -22,6 +21,7 @@ enum MessageType {
   collaboration('Collaboration Opportunity'),
   consultation('Technical Consultation'),
   hiring('Hiring/Job Opportunity'),
+  tutoring('Tutoring/Mentorship'),
   general('General Question'),
   other('Other');
 

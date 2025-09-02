@@ -1,44 +1,11 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:portfolio_site/components/ui/badge.dart';
+import 'package:portfolio_site/config/site_config.dart';
 import 'package:portfolio_site/models/technology_model.dart';
 
 // Technologies Section Component
 class TechnologiesSection extends StatelessComponent {
   const TechnologiesSection({super.key});
-
-  // Technologies data organized by categories
-  static const List<TechnologyCategory> technologiesData = [
-    TechnologyCategory(
-      name: 'Mobile Development',
-      technologies: ['Flutter', 'Dart', 'iOS', 'Android', 'React Native'],
-    ),
-    TechnologyCategory(
-      name: 'Backend & Cloud',
-      technologies: ['Firebase', 'Serverpod', 'Node.js', 'PostgreSQL', 'MongoDB'],
-    ),
-    TechnologyCategory(
-      name: 'Web Development',
-      technologies: ['Jaspr', 'Tailwind CSS', 'HTML5', 'CSS3', 'JavaScript'],
-    ),
-    TechnologyCategory(
-      name: 'Tools & Platforms',
-      technologies: ['Git', 'Docker', 'VS Code', 'Figma', 'Postman'],
-    ),
-    TechnologyCategory(
-      name: 'State Management',
-      technologies: ['Riverpod', 'Provider', 'Bloc', 'GetX', 'MobX'],
-    ),
-    TechnologyCategory(
-      name: 'Testing & Quality',
-      technologies: [
-        'Unit Testing',
-        'Widget Testing',
-        'Integration Testing',
-        'CI/CD',
-        'Code Review'
-      ],
-    ),
-  ];
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
@@ -90,8 +57,8 @@ class TechnologiesSection extends StatelessComponent {
     return div(
       classes: 'grid md:grid-cols-2 lg:grid-cols-3 gap-8',
       [
-        for (int categoryIndex = 0; categoryIndex < technologiesData.length; categoryIndex++)
-          _buildTechnologyCategory(technologiesData[categoryIndex], categoryIndex),
+        for (int categoryIndex = 0; categoryIndex < SiteConfig.technologiesData.length; categoryIndex++)
+          _buildTechnologyCategory(SiteConfig.technologiesData[categoryIndex], categoryIndex),
       ],
     );
   }

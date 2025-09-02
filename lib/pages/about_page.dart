@@ -1,4 +1,4 @@
-import 'package:jaspr/server.dart';
+import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 import 'package:portfolio_site/components/about/progress_bar.dart';
 import 'package:portfolio_site/components/ui/badge.dart';
@@ -6,14 +6,13 @@ import 'package:portfolio_site/components/ui/card.dart';
 import 'package:portfolio_site/components/ui/icon.dart';
 import 'package:portfolio_site/config/site_config.dart';
 import 'package:portfolio_site/models/about_model.dart';
-import 'package:portfolio_site/services/remote/remote_service.dart';
 
-class AboutPage extends AsyncStatelessComponent {
-  const AboutPage({super.key});
+class AboutPage extends StatelessComponent {
+  const AboutPage({super.key, required this.achievements});
+  final List<Achievement> achievements;
 
   @override
-  Stream<Component> build(BuildContext context) async* {
-    final achievements = await RemoteService().getAchievements();
+  Iterable<Component> build(BuildContext context) sync* {
 
     yield div(
       classes: 'pt-24 pb-16',

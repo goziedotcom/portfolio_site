@@ -7,7 +7,7 @@ import 'package:universal_web/web.dart' as web;
 @Import.onWeb('package:portfolio_site/services/interop/scroll_interop.dart', show: [#customScroll])
 import 'scroll_to_top_button.imports.dart';
 
-@client
+// @client
 class ScrollToTopButton extends StatefulComponent {
   final double showAtViewportFraction; // show after scrolling x fraction of viewport height
   final int scrollDurationMs;

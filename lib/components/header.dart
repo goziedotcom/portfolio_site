@@ -4,11 +4,10 @@ import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'package:portfolio_site/components/ui/theme_toggle_button.dart';
 import 'package:portfolio_site/config/site_config.dart';
-import 'package:portfolio_site/main.dart';
 import 'package:portfolio_site/providers/theme_providers.dart';
 import 'package:universal_web/web.dart' as web;
 
-@client
+// @client
 class Header extends StatefulComponent {
   const Header({super.key});
 
@@ -68,61 +67,54 @@ class _HeaderState extends State<Header> {
   Iterable<Component> build(BuildContext context) sync* {
     var activePath = context.url;
 
-    yield ProviderScope(
-      parent: container,
-      child: Builder(
-        builder: (context) sync* {
-          // Watch theme state for the toggle button
-          final themeMode = context.watch(themeProvider);
-          final isDark = context.watch(isDarkProvider);
-          final notifier = context.read(themeProvider.notifier);
+    // Watch theme state for the toggle button
+    final themeMode = context.watch(themeProvider);
+    final isDark = context.watch(isDarkProvider);
+    final notifier = context.read(themeProvider.notifier);
 
-          yield header(
-            id: 'main-header', // Important: ID for JS targeting
-            classes: [
-              'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-              _headerClass, // Dynamic classes from JavaScript
-            ].join(' '),
-            [
-              div(
-                classes: 'container mx-auto px-4 sm:px-6 lg:px-8',
-                [
-                  div(
-                    classes: 'flex items-center justify-between h-16',
-                    [
-                      // Logo with enhanced styling
-                      _buildLogo(),
+    yield header(
+      id: 'main-header', // Important: ID for JS targeting
+      classes: [
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        _headerClass, // Dynamic classes from JavaScript
+      ].join(' '),
+      [
+        div(
+          classes: 'container mx-auto px-4 sm:px-6 lg:px-8',
+          [
+            div(
+              classes: 'flex items-center justify-between h-16',
+              [
+                // Logo with enhanced styling
+                _buildLogo(),
 
-                      // Desktop navigation
-                      _buildDesktopNavigation(activePath),
+                // Desktop navigation
+                _buildDesktopNavigation(activePath),
 
-                      // Right side controls
-                      div(
-                        classes: 'flex items-center space-x-4',
-                        [
-                          // Enhanced theme toggle
-                          if (kIsWeb)
-                            SlidingThemeToggle(
-                              themeMode: themeMode,
-                              isDark: isDark,
-                              onToggle: notifier.toggleTheme,
-                            ),
-
-                          // Enhanced mobile menu button
-                          _buildMobileMenuButton(),
-                        ],
+                // Right side controls
+                div(
+                  classes: 'flex items-center space-x-4',
+                  [
+                    // Enhanced theme toggle
+                    if (kIsWeb)
+                      SlidingThemeToggle(
+                        themeMode: themeMode,
+                        isDark: isDark,
+                        onToggle: notifier.toggleTheme,
                       ),
-                    ],
-                  ),
 
-                  // Enhanced mobile menu
-                  _buildMobileMenu(activePath),
-                ],
-              ),
-            ],
-          );
-        },
-      ),
+                    // Enhanced mobile menu button
+                    _buildMobileMenuButton(),
+                  ],
+                ),
+              ],
+            ),
+
+            // Enhanced mobile menu
+            _buildMobileMenu(activePath),
+          ],
+        ),
+      ],
     );
   }
 

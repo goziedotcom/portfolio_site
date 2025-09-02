@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 import 'package:portfolio_site/models/about_model.dart';
 import 'package:portfolio_site/models/contact_model.dart';
+import 'package:portfolio_site/models/services_model.dart';
+import 'package:portfolio_site/models/technology_model.dart';
 
 class SiteConfig {
   // Personal Information
@@ -182,5 +184,109 @@ class SiteConfig {
     'Focus on performance and user experience',
     'Clean, maintainable, and scalable code',
     'Transparent communication throughout the project',
+  ];
+
+  static const List<ServiceModel> services = [
+  ServiceModel(
+    icon: lucide.smartphone,
+    title: 'Mobile App Development',
+    description:
+        'End-to-end Flutter apps for iOS and Android with beautiful UIs, smooth performance, and seamless backend integration.',
+    features: [
+      'Cross-platform development',
+      'Native performance',
+      'Backend & API integration',
+      'Real-time data sync'
+    ],
+  ),
+  ServiceModel(
+    icon: lucide.searchCheck,
+    title: 'Free App Audit',
+    description:
+        'Comprehensive analysis of your existing app\'s performance, security, and user experience with actionable recommendations.',
+    features: [
+      'Performance analysis',
+      'Security assessment',
+      'UX evaluation',
+      'Improvement roadmap'
+    ],
+  ),
+  ServiceModel(
+    icon: lucide.graduationCap,
+    title: 'Python Programming Instruction',
+    description:
+        'Comprehensive Python training from fundamentals to advanced concepts, tailored for beginners and professionals.',
+    features: [
+      'Beginner to advanced curriculum',
+      'Data science & web development',
+      'Hands-on projects',
+      'Personalized learning path'
+    ],
+  ),
+  ServiceModel(
+    icon: lucide.code,
+    title: 'JavaScript Tutoring',
+    description:
+        'Expert JavaScript instruction covering modern ES6+, frameworks, and full-stack development principles.',
+    features: [
+      'Modern JavaScript (ES6+)',
+      'Frontend frameworks',
+      'Node.js & backend development',
+      'Interactive coding sessions'
+    ],
+  ),
+  ServiceModel(
+    icon: lucide.messageCircle,
+    title: 'Mobile App Consultation',
+    description:
+        'Expert guidance and strategic planning for your mobile app project from concept to launch.',
+    features: [
+      'Project feasibility analysis',
+      'Technology recommendations',
+      'Development roadmap',
+      'Cost estimation'
+    ],
+  ),
+  ServiceModel(
+    icon: lucide.globe,
+    title: 'Web Development',
+    description:
+        'Modern web applications using Flutter Web and Jaspr for consistent experiences across platforms.',
+    features: ['Responsive design', 'PWA capabilities', 'SEO optimization'],
+  ),
+];
+
+    // Technologies data organized by categories
+  static const List<TechnologyCategory> technologiesData = [
+    TechnologyCategory(
+      name: 'Mobile Development',
+      technologies: ['Flutter', 'Dart', 'iOS', 'Android', 'React Native'],
+    ),
+    TechnologyCategory(
+      name: 'Backend & Cloud',
+      technologies: ['Firebase', 'Serverpod', 'Node.js', 'PostgreSQL', 'MongoDB'],
+    ),
+    TechnologyCategory(
+      name: 'Web Development',
+      technologies: ['Jaspr', 'Tailwind CSS', 'HTML5', 'CSS3', 'JavaScript'],
+    ),
+    TechnologyCategory(
+      name: 'Tools & Platforms',
+      technologies: ['Git', 'Docker', 'VS Code', 'Figma', 'Postman'],
+    ),
+    TechnologyCategory(
+      name: 'State Management',
+      technologies: ['Riverpod', 'Provider', 'Bloc', 'GetX', 'MobX'],
+    ),
+    TechnologyCategory(
+      name: 'Testing & Quality',
+      technologies: [
+        'Unit Testing',
+        'Widget Testing',
+        'Integration Testing',
+        'CI/CD',
+        'Code Review'
+      ],
+    ),
   ];
 }

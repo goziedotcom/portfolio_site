@@ -1,66 +1,11 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 import 'package:portfolio_site/components/ui/card.dart';
 import 'package:portfolio_site/components/ui/icon.dart';
+import 'package:portfolio_site/config/site_config.dart';
 import 'package:portfolio_site/models/services_model.dart';
 
 class ServicesSection extends StatelessComponent {
   const ServicesSection({super.key});
-
-  static const List<ServiceModel> services = [
-    ServiceModel(
-      icon: lucide.smartphone,
-      title: 'Mobile App Development',
-      description:
-          'Native-quality Flutter apps for iOS and Android with beautiful UIs and smooth performance.',
-      features: ['Cross-platform development', 'Native performance', 'Custom UI components'],
-    ),
-    ServiceModel(
-      icon: lucide.searchCheck,
-      title: 'Free App Audit',
-      description:
-          'Comprehensive analysis of your existing app\'s performance, security, and user experience with actionable recommendations.',
-      features: [
-        'Performance analysis',
-        'Security assessment',
-        'UX evaluation',
-        'Improvement roadmap'
-      ],
-    ),
-    ServiceModel(
-      icon: lucide.messageCircle,
-      title: 'Mobile App Consultation',
-      description:
-          'Expert guidance and strategic planning for your mobile app project from concept to launch.',
-      features: [
-        'Project feasibility analysis',
-        'Technology recommendations',
-        'Development roadmap',
-        'Cost estimation'
-      ],
-    ),
-    ServiceModel(
-      icon: lucide.zap,
-      title: 'Backend Integration',
-      description:
-          'Seamless API integration with Firebase, Serverpod, and custom backend solutions.',
-      features: ['Real-time data sync', 'Cloud functions', 'Database optimization'],
-    ),
-    ServiceModel(
-      icon: lucide.globe,
-      title: 'Web Development',
-      description:
-          'Modern web applications using Flutter Web and Jaspr for consistent experiences across platforms.',
-      features: ['Responsive design', 'PWA capabilities', 'SEO optimization'],
-    ),
-    ServiceModel(
-      icon: lucide.shield,
-      title: 'App Security',
-      description:
-          'Implementing robust security measures including authentication, encryption, and secure storage.',
-      features: ['User authentication', 'Data encryption', 'Secure API calls'],
-    ),
-  ];
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
@@ -110,8 +55,8 @@ class ServicesSection extends StatelessComponent {
     return div(
       classes: 'grid md:grid-cols-2 lg:grid-cols-3 gap-8',
       [
-        for (int index = 0; index < services.length; index++)
-          _buildServiceCard(services[index], index),
+        for (int index = 0; index < SiteConfig.services.length; index++)
+          _buildServiceCard(SiteConfig.services[index], index),
       ],
     );
   }

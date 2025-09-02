@@ -4,7 +4,7 @@ import 'package:portfolio_site/components/ui/button.dart';
 @Import.onWeb('package:portfolio_site/services/interop/scroll_interop.dart', show: [#customScroll])
 import 'scroll_to_next.imports.dart';
 
-@client
+// @client
 class ScrollToNextSection extends StatelessComponent {
   const ScrollToNextSection();
 

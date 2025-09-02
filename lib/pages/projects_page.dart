@@ -2,21 +2,20 @@
 // PROJECTS PAGE
 // ============================================================================
 
-import 'package:jaspr/server.dart';
+import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'package:portfolio_site/components/projects/featured_project.dart';
 import 'package:portfolio_site/components/projects/projects_view.dart';
 import 'package:portfolio_site/components/ui/button.dart';
 import 'package:portfolio_site/components/ui/card.dart';
 import 'package:portfolio_site/models/project_model.dart';
-import 'package:portfolio_site/services/remote/remote_service.dart';
 
-class ProjectsPage extends AsyncStatelessComponent {
-  const ProjectsPage({super.key});
+class ProjectsPage extends StatelessComponent {
+  const ProjectsPage({super.key, required this.projects});
+  final List<Project> projects;
 
   @override
-  Stream<Component> build(BuildContext context) async* {
-    final projects = await RemoteService().getProjects();
+  Iterable<Component> build(BuildContext context) sync* {
 
     if (projects.isEmpty) {
       yield div(

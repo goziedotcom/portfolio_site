@@ -6,6 +6,7 @@ import 'package:portfolio_site/components/scroll_to_top_button.dart';
 import 'package:portfolio_site/pages/about_page.dart';
 import 'package:portfolio_site/pages/articles_page.dart';
 import 'package:portfolio_site/pages/projects_page.dart';
+import 'package:portfolio_site/services/remote/remote_service.dart';
 
 import 'components/header.dart';
 import 'pages/contact_page.dart';
@@ -49,8 +50,9 @@ final routes = [
     path: '/',
     builder: (context, state) => LazyComponent(
       loader: () async {
-        await Future.delayed(Duration(milliseconds: 100));
-        return const Home();
+        final projects = await RemoteService().getProjects();
+        final articles = await RemoteService().getArticles();
+        return Home(projects: projects, articles: articles);
       },
     ),
   ),
@@ -58,8 +60,8 @@ final routes = [
     path: '/about',
     builder: (context, state) => LazyComponent(
       loader: () async {
-        await Future.delayed(Duration(milliseconds: 100));
-        return const AboutPage();
+        final achievements = await RemoteService().getAchievements();
+        return AboutPage(achievements: achievements);
       },
     ),
   ),
@@ -67,8 +69,8 @@ final routes = [
     path: '/projects',
     builder: (context, state) => LazyComponent(
       loader: () async {
-        await Future.delayed(Duration(milliseconds: 100));
-        return const ProjectsPage();
+        final projects = await RemoteService().getProjects();
+        return ProjectsPage(projects: projects);
       },
     ),
   ),
@@ -76,8 +78,8 @@ final routes = [
     path: '/articles',
     builder: (context, state) => LazyComponent(
       loader: () async {
-        await Future.delayed(Duration(milliseconds: 100));
-        return const ArticlesPage();
+        final articles = await RemoteService().getArticles();
+        return ArticlesPage(articles: articles);
       },
     ),
   ),
@@ -85,8 +87,8 @@ final routes = [
     path: '/contact',
     builder: (context, state) => LazyComponent(
       loader: () async {
-        await Future.delayed(Duration(milliseconds: 100));
-        return const ContactPage();
+        await Future.delayed(Duration(milliseconds: 500));
+        return ContactPage();
       },
     ),
   ),
