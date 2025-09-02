@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'package:portfolio_site/components/footer.dart';
+import 'package:portfolio_site/components/lazy_loader.dart';
 import 'package:portfolio_site/components/scroll_to_top_button.dart';
 import 'package:portfolio_site/pages/about_page.dart';
 import 'package:portfolio_site/pages/articles_page.dart';
@@ -46,22 +47,47 @@ class _AppState extends State<App> {
 final routes = [
   Route(
     path: '/',
-    builder: (context, state) => const Home(),
+    builder: (context, state) => LazyComponent(
+      loader: () async {
+        await Future.delayed(Duration(milliseconds: 100));
+        return const Home();
+      },
+    ),
   ),
   Route(
     path: '/about',
-    builder: (_, state) => const AboutPage(),
+    builder: (context, state) => LazyComponent(
+      loader: () async {
+        await Future.delayed(Duration(milliseconds: 100));
+        return const AboutPage();
+      },
+    ),
   ),
   Route(
     path: '/projects',
-    builder: (_, state) => const ProjectsPage(),
+    builder: (context, state) => LazyComponent(
+      loader: () async {
+        await Future.delayed(Duration(milliseconds: 100));
+        return const ProjectsPage();
+      },
+    ),
   ),
   Route(
     path: '/articles',
-    builder: (_, state) => const ArticlesPage(),
+    builder: (context, state) => LazyComponent(
+      loader: () async {
+        await Future.delayed(Duration(milliseconds: 100));
+        return const ArticlesPage();
+      },
+    ),
   ),
   Route(
     path: '/contact',
-    builder: (_, state) => const ContactPage(),
+    builder: (context, state) => LazyComponent(
+      loader: () async {
+        await Future.delayed(Duration(milliseconds: 100));
+        return const ContactPage();
+      },
+    ),
   ),
 ];

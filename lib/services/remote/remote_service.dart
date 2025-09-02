@@ -3,12 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:portfolio_site/models/about_model.dart';
 import 'package:portfolio_site/models/article_model.dart';
 import 'package:portfolio_site/models/project_model.dart';
+import 'package:portfolio_site/services/remote/api_keys.dart';
 import 'dart:convert';
 
-const GITHUB_TOKEN =
-    "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";
-const GITHUB_OWNER = "goziedotcom";
-const GITHUB_REPO = "portfolio_data";
+
+
 
 class RemoteService {
   final Dio _dio = Dio();
