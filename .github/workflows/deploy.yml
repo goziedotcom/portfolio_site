@@ -44,7 +44,12 @@ jobs:
           
       - name: Install dependencies
         run: dart pub get
-        
+      
+      - name: Create styles.css if missing
+        run: |
+          if [ ! -f web/styles.css ]; then
+            touch web/styles.css
+          fi
       - name: Create API keys file from secrets
         run: |
           mkdir -p lib/services/remote
