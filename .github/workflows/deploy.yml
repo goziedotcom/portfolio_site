@@ -60,30 +60,36 @@ jobs:
       - name: Build Jaspr app
         run: jaspr build
         
-      - name: Create SPA routing files
+      # - name: Create SPA routing files
+      #   run: |
+      #     # Create simple 404.html that just redirects to home
+      #     cat > build/jaspr/404.html << 'EOF'
+      #     <!DOCTYPE html>
+      #     <html>
+      #     <head>
+      #         <meta charset="utf-8">
+      #         <title>Redirecting...</title>
+      #         <script>
+      #             // Simple redirect to home page
+      #             window.location.replace('/');
+      #         </script>
+      #     </head>
+      #     <body>
+      #         <p>Redirecting...</p>
+      #     </body>
+      #     </html>
+      #     EOF
+          
+      #     # Create .nojekyll to disable Jekyll processing
+      #     touch build/jaspr/.nojekyll
+          
+      #     # Create CNAME file
+      #     echo "gozieihejirika.com" > build/jaspr/CNAME
+
+      - name: Create minimal deployment files
         run: |
-          # Create simple 404.html that just redirects to home
-          cat > build/jaspr/404.html << 'EOF'
-          <!DOCTYPE html>
-          <html>
-          <head>
-              <meta charset="utf-8">
-              <title>Redirecting...</title>
-              <script>
-                  // Simple redirect to home page
-                  window.location.replace('/');
-              </script>
-          </head>
-          <body>
-              <p>Redirecting...</p>
-          </body>
-          </html>
-          EOF
-          
-          # Create .nojekyll to disable Jekyll processing
+          # Just create .nojekyll and CNAME without 404.html
           touch build/jaspr/.nojekyll
-          
-          # Create CNAME file
           echo "gozieihejirika.com" > build/jaspr/CNAME
           
       - name: Setup Pages
