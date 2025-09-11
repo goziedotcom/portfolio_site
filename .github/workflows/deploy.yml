@@ -44,12 +44,7 @@ jobs:
           
       - name: Install dependencies
         run: dart pub get
-      
-      - name: Create styles.css if missing
-        run: |
-          if [ ! -f web/styles.css ]; then
-            touch web/styles.css
-          fi
+        
       - name: Create API keys file from secrets
         run: |
           mkdir -p lib/services/remote
@@ -58,9 +53,12 @@ jobs:
           const GITHUB_OWNER = "${{ secrets.GH_OWNER }}";
           const GITHUB_REPO = "${{ secrets.GH_REPO }}";
           EOF
+          
+      - name: Activate Jaspr CLI
+        run: dart pub global activate jaspr_cli
         
       - name: Build Jaspr app
-        run: dart run build_runner build web --delete-conflicting-outputs
+        run: jaspr build
         
       - name: Create SPA routing files
         run: |
@@ -90,7 +88,7 @@ jobs:
           touch build/web/.nojekyll
           
           # Create CNAME file (replace with your domain)
-          echo "yourdomain.com" > build/web/CNAME
+          echo "gozieihejirika.com" > build/web/CNAME
           
       - name: Setup Pages
         uses: actions/configure-pages@v5
