@@ -40,7 +40,7 @@ jobs:
         run: dart pub get
         
       - name: Build Jaspr app
-        run: dart run jaspr build
+        run: dart run build_runner build web --delete-conflicting-outputs
         
       - name: Create SPA routing files
         run: |
