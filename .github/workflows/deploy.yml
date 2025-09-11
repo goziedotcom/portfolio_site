@@ -59,6 +59,20 @@ jobs:
         
       - name: Build Jaspr app
         run: jaspr build
+
+      - name: Check build folder contents
+        run: |
+          echo "=== Build directory structure ==="
+          ls -la build/
+          echo ""
+          echo "=== Jaspr folder contents ==="
+          ls -la build/jaspr/
+          echo ""
+          echo "=== All files in build/jaspr ==="
+          find build/jaspr/ -type f -exec ls -la {} \;
+          echo ""
+          echo "=== Looking for HTML files specifically ==="
+          find build/jaspr/ -name "*.html" -type f
         
       - name: Create SPA routing files
         run: |
