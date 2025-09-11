@@ -1,6 +1,73 @@
+// ===== TOAST FUNCTIONS - Easy to swap libraries =====
+
+// Notyf version:
+const notyf = new Notyf({
+    duration: 5000,
+    position: { x: 'center', y: 'top' },
+    dismissible: true,
+    ripple: true
+});
+
+function showSuccessToast(message) {
+    if (typeof notyf === 'undefined') {
+        console.error('Notyf library not loaded! Falling back to alert.');
+        alert('Success: ' + message);
+        return;
+    }
+    notyf.success(message);
+}
+
+function showErrorToast(message) {
+    if (typeof notyf === 'undefined') {
+        console.error('Notyf library not loaded! Falling back to alert.');
+        alert('Error: ' + message);
+        return;
+    } 
+    notyf.error(message);
+}
+
+// iziToast version:
+/*
+function showSuccessToast(message) {
+    if (typeof iziToast === 'undefined') {
+        console.error('iziToast library not loaded! Falling back to alert.');
+        alert('Success: ' + message);
+        return;
+    }
+    iziToast.success({
+        title: 'Success!',
+        message: message,
+        position: 'topRight',
+        timeout: 5000,
+        close: true,
+        closeOnClick: true,
+        progressBar: true
+    });
+}
+
+function showErrorToast(message) {
+    if (typeof iziToast === 'undefined') {
+        console.error('iziToast library not loaded! Falling back to alert.');
+        alert('Error: ' + message);
+        return;
+    }
+    iziToast.error({
+        title: 'Error!',
+        message: message,
+        position: 'topRight',
+        timeout: 7000,
+        close: true,
+        closeOnClick: true,
+        progressBar: true
+    });
+}
+*/
+
+// ===== FORM SUBMISSION HANDLER =====
+
 async function handleSubmit(event) {
     event.preventDefault();
-    var data = new FormData(event.target);
+    var data = new FormData(event.target);  
 
     // Create AbortController for timeout
     const controller = new AbortController();
@@ -17,16 +84,7 @@ async function handleSubmit(event) {
         clearTimeout(timeoutId); // Clear timeout on successful response
         if (response.ok) {
             // Show success toast
-            Toastify({
-                text: "Message sent successfully! I'll get back to you soon.",
-                duration: 5000,
-                close: true,
-                gravity: "top",
-                position: "right",
-                backgroundColor: "transparent",
-                className: "toast-success",
-                stopOnFocus: true,
-            }).showToast();
+            showSuccessToast("Message sent successfully! I'll get back to you soon.");
 
             // Reset the HTML form elements
             event.target.reset();
@@ -36,7 +94,7 @@ async function handleSubmit(event) {
         } else {
             response.json().then(data => {
                 let errorMessage = "Failed to send message. Please try again.";
-                
+
                 // More detailed error handling
                 if (Object.hasOwn(data, 'errors')) {
                     errorMessage = data["errors"].map(error => error["message"]).join(", ");
@@ -45,31 +103,13 @@ async function handleSubmit(event) {
                 }
 
                 // Show error toast
-                Toastify({
-                    text: errorMessage,
-                    duration: 7000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "transparent",
-                    className: "toast-error",
-                    stopOnFocus: true,
-                }).showToast();
+                showErrorToast(errorMessage);
 
                 // Dispatch error event for Jaspr component
                 window.dispatchEvent(new CustomEvent('formError'));
             }).catch(() => {
                 // Fallback error message if JSON parsing fails
-                Toastify({
-                    text: "An unexpected error occurred. Please try again.",
-                    duration: 7000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "transparent",
-                    className: "toast-error",
-                    stopOnFocus: true,
-                }).showToast();
+                showErrorToast("An unexpected error occurred. Please try again.");
 
                 // Dispatch error event for Jaspr component
                 window.dispatchEvent(new CustomEvent('formError'));
@@ -77,25 +117,16 @@ async function handleSubmit(event) {
         }
     }).catch(error => {
         clearTimeout(timeoutId); // Clear timeout on error
-        
+
         let errorMessage = "Network error. Please check your connection and try again.";
-        
+
         // Check if error was due to timeout
         if (error.name === 'AbortError') {
             errorMessage = "Request timed out. Please try again.";
         }
 
         // Show network error toast
-        Toastify({
-            text: errorMessage,
-            duration: 7000,
-            close: true,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "transparent",
-            className: "toast-error",
-            stopOnFocus: true,
-        }).showToast();
+        showErrorToast(errorMessage);
 
         // Dispatch error event for Jaspr component
         window.dispatchEvent(new CustomEvent('formError'));
@@ -103,9 +134,8 @@ async function handleSubmit(event) {
 }
 
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById("my-form");
-    if (form) {
-        form.addEventListener("submit", handleSubmit);
+document.addEventListener('submit', function (event) {
+    if (event.target.id === 'my-form') {
+        handleSubmit(event);
     }
 });

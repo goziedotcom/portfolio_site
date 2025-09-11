@@ -41,7 +41,7 @@ class _LazyComponentState extends State<LazyComponent> {
 
   Component _buildDefaultLoader() {
     // Use full screen classes if fullScreen is true
-    final containerClasses = component.fullScreen 
+    final containerClasses = component.fullScreen
         ? 'min-h-screen w-full flex flex-col justify-center items-center bg-background'
         : 'flex flex-col justify-center items-center min-h-[50vh] p-8';
 
@@ -99,7 +99,7 @@ class _LazyComponentState extends State<LazyComponent> {
                 bg-primary animate-pulse
                 shadow-sm
               ''',
-              styles: Styles(raw:{
+              styles: Styles(raw: {
                 'box-shadow': '0 0 12px hsl(var(--primary) / 0.6)',
               }),
               [],
@@ -141,7 +141,7 @@ class _LazyComponentState extends State<LazyComponent> {
             text-muted-foreground
             animate-fade-in-delay
           ''',
-          [text('Preparing your content...')],
+          [text('Preparing content...')],
         ),
 
         // Progress dots
@@ -223,7 +223,7 @@ Component buildFullScreenLoader() {
               bg-primary animate-pulse
               shadow-sm
             ''',
-            styles: Styles(raw:{
+            styles: Styles(raw: {
               'box-shadow': '0 0 12px hsl(var(--primary) / 0.6)',
             }),
             [],
@@ -265,7 +265,7 @@ Component buildFullScreenLoader() {
           text-muted-foreground
           animate-fade-in-delay
         ''',
-        [text('Preparing your content...')],
+        [text('Preparing content...')],
       ),
 
       // Progress dots

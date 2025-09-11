@@ -16,7 +16,6 @@ class ProjectsPage extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-
     if (projects.isEmpty) {
       yield div(
         classes: 'min-h-screen flex items-center justify-center',
@@ -50,7 +49,7 @@ class ProjectsPage extends StatelessComponent {
           ],
         ),
 
-        // Interactive Projects View (Client-rendered)
+        // Interactive Projects View
         ProjectsView(projects: projects),
 
         // CTA Section
@@ -59,7 +58,7 @@ class ProjectsPage extends StatelessComponent {
           [
             div(
               classes: 'pt-8 pb-16',
-              [_buildCTASection()],
+              [_buildCTASection(context)],
             ),
           ],
         ),
@@ -121,7 +120,7 @@ Component _buildFeaturedProjects(List<Project> featuredProjects) {
   );
 }
 
-Component _buildCTASection() {
+Component _buildCTASection(BuildContext context) {
   return div(
     classes: 'text-center mt-8',
     [
@@ -148,12 +147,10 @@ Component _buildCTASection() {
                   text("Let's discuss how we can bring your ideas to life."),
                 ],
               ),
-              Link(
-                to: '/contact',
-                child: TButton(
-                  text: 'Get In Touch',
-                  customClasses: 'px-8 py-4',
-                ),
+              TButton(
+                text: 'Get In Touch',
+                customClasses: 'px-8 py-4',
+                onClick: () => context.push('/contact'),
               ),
             ],
           ),

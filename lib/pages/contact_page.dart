@@ -14,8 +14,6 @@ class ContactPage extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    yield script(src: 'js/contact_form.js', []);
-
     yield div(
       classes: 'pt-24 pb-16',
       [
@@ -32,7 +30,7 @@ class ContactPage extends StatelessComponent {
                 div(
                   classes: 'grid lg:grid-cols-2 gap-12',
                   [
-                    // Contact Form - Client-rendered
+                    // Contact Form
                     ContactFormCard(),
 
                     // Contact Info

@@ -44,7 +44,7 @@ class ServicesSection extends StatelessComponent {
         p(
           classes: 'text-xl text-muted-foreground max-w-2xl mx-auto',
           [
-            text('Full-stack mobile development services to bring your ideas to life'),
+            text('Comprehensive software development services to bring your ideas and projects to life'),
           ],
         ),
       ],

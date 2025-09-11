@@ -30,12 +30,10 @@ class ProjectsSection extends StatelessComponent {
 
             // View All Projects CTA
             div(classes: 'text-center', [
-              Link(
-                to: '/projects',
-                child: TButton.outline(
-                  text: 'View All Projects',
-                  subtleBorder: false,
-                ),
+              TButton.outline(
+                text: 'View All Projects',
+                subtleBorder: false,
+                onClick: () => context.push('/projects'),
               )
             ]),
           ],
@@ -61,7 +59,7 @@ class ProjectsSection extends StatelessComponent {
         p(
           classes: 'text-xl text-muted-foreground max-w-2xl mx-auto',
           [
-            text('Showcasing some of my best mobile development work'),
+            text('Showcasing some of my favorite works, spanning various technologies and industries'),
           ],
         ),
       ],

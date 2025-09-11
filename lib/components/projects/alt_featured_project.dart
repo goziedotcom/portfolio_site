@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/generated_icons/external_link.dart' show externalLink;
 import 'package:jaspr_lucide/generated_icons/github.dart' show github;
-import 'package:jaspr_router/jaspr_router.dart';
 import 'package:portfolio_site/components/ui/badge.dart';
 import 'package:portfolio_site/components/ui/card.dart';
 import 'package:portfolio_site/components/ui/icon.dart';
@@ -31,7 +30,7 @@ class AltFeaturedProjectCard extends StatelessComponent {
         CardHeader(
           children: [
             CardTitle(
-              additionalClasses: 'text-xl group-hover:text-primary transition-colors duration-300',
+              additionalClasses: 'text-xl group-hover:text-primary transition-colors duration-300 mb-3',
               children: [text(project.title)],
             ),
             CardDescription(
@@ -115,22 +114,24 @@ class AltFeaturedProjectCard extends StatelessComponent {
     required String href,
     required String label,
   }) {
-    return Link(
+    return a(
       classes:
           'inline-flex items-center justify-center h-8 w-8 p-0 rounded-md bg-secondary hover:bg-secondary/80 transition-colors duration-200',
-      to: href,
+      href: href,
       target: Target.blank,
       attributes: {
         'rel': 'noopener noreferrer',
         'aria-label': label,
         'title': label,
       },
-      child: TIcon(
-        lucideIcon: icon,
-        theme: IconTheme.monochrome,
-        width: const Unit.pixels(16),
-        height: const Unit.pixels(16),
-      ),
+      [
+        TIcon(
+          lucideIcon: icon,
+          theme: IconTheme.monochrome,
+          width: const Unit.pixels(16),
+          height: const Unit.pixels(16),
+        ),
+      ],
     );
   }
 }

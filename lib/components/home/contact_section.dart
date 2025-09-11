@@ -235,21 +235,19 @@ class ContactCtaCard extends StatelessComponent {
                       classes: 'text-primary-foreground/90 max-w-sm mx-auto leading-relaxed',
                       [
                         text(
-                            "Let's discuss your project and turn your ideas into amazing mobile experiences!"),
+                            "Let's discuss your project and turn your ideas into amazing mobile and web experiences!"),
                       ],
                     ),
                   ],
                 ),
 
                 // Primary CTA Button
-                Link(
-                  to: '/contact',
-                  child: TButton.ghost(
-                    text: 'Get In Touch',
-                    icon: lucide.send,
-                    fullWidth: true,
-                    customClasses: 'mt-4',
-                  ),
+                TButton.ghost(
+                  text: 'Get In Touch',
+                  icon: lucide.send,
+                  onClick: () => context.push('/contact'),
+                  fullWidth: true,
+                  customClasses: 'mt-4',
                 ),
 
                 // Lead Magnet + Trust Indicators

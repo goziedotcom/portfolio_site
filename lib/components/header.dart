@@ -65,12 +65,11 @@ class _HeaderState extends State<Header> {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    var activePath = context.url;
-
     // Watch theme state for the toggle button
     final themeMode = context.watch(themeProvider);
     final isDark = context.watch(isDarkProvider);
     final notifier = context.read(themeProvider.notifier);
+    final activePath = context.url;
 
     yield header(
       id: 'main-header', // Important: ID for JS targeting
@@ -146,11 +145,11 @@ class _HeaderState extends State<Header> {
   Component _buildDesktopNavLink(String label, String href, String activePath) {
     final isActive = activePath == href;
 
-    return a(
+    return Link(
       classes:
           'text-foreground/80 hover:text-primary transition-colors duration-300 font-medium relative group',
-      href: isActive ? 'javascript:void(0)' : href,
-      [
+      to: isActive ? 'javascript:void(0)' : href,
+      children: [
         text(label),
         // Animated underline
         span(
@@ -161,7 +160,7 @@ class _HeaderState extends State<Header> {
       ],
     );
   }
-
+  
   Component _buildMobileMenuButton() {
     return button(
       classes:

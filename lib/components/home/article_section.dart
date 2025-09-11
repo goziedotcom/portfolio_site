@@ -43,16 +43,17 @@ class ArticlesSection extends StatelessComponent {
             ],
 
             // View All Articles CTA
-            div(classes: "text-center", [
-              Link(
-                to: '/articles',
-                child: TButton.outline(
+            div(
+              classes: "text-center",
+              [
+                TButton.outline(
                   text: 'View All Articles',
                   subtleBorder: false,
                   customClasses: "text-center",
+                  onClick: () => context.push('/articles'),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ],
         ),
       ],
@@ -76,7 +77,7 @@ class ArticlesSection extends StatelessComponent {
         p(
           classes: 'text-xl text-muted-foreground max-w-2xl mx-auto',
           [
-            text('Sharing knowledge and insights about mobile development'),
+            text('Sharing knowledge and insights about software development and technology'),
           ],
         ),
       ],

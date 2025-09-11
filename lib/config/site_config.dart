@@ -33,7 +33,7 @@ class SiteConfig {
 
   static const String yearsOfExperience = "4";
 
-  static const String projectsBuilt = "10+";
+  static const String clientsServed = "10+";
 
   // Meta data map for Document meta property
   static Map<String, String> get getMetaData => {
@@ -101,11 +101,11 @@ class SiteConfig {
 
   static const List<Skill> skillsData = [
     Skill(name: "Flutter & Dart", level: 95),
+    Skill(name: "React & TypeScript", level: 85),
     Skill(name: "Mobile Architecture", level: 90),
-    Skill(name: "Firebase & Backend", level: 85),
-    Skill(name: "State Management", level: 92),
-    Skill(name: "Native iOS/Android", level: 75),
-    Skill(name: "UI Development", level: 95),
+    Skill(name: "Frontend Development", level: 85),
+    Skill(name: "State Management", level: 90),
+    Skill(name: "Backend Integration", level: 87),
   ];
 
   static const List<Value> valuesData = [
@@ -113,19 +113,19 @@ class SiteConfig {
       icon: lucide.target,
       title: "Performance First",
       description:
-          "I build Flutter apps that are fast, responsive, and provide smooth 60fps experiences across all devices.",
+          "I build high-performance applications that deliver smooth, responsive experiences across mobile and web platforms.",
     ),
     Value(
       icon: lucide.heart,
       title: "User-Centric Design",
       description:
-          "Every mobile interface I create focuses on intuitive navigation and delightful user interactions.",
+          "Every interface I create prioritizes intuitive navigation and delightful user experiences, whether on mobile or web.",
     ),
     Value(
-      icon: lucide.award,
-      title: "Cross-Platform Excellence",
+      icon: lucide.users,
+      title: "Knowledge Sharing",
       description:
-          "I specialize in Flutter's 'write once, run anywhere' philosophy while maintaining native quality.",
+          "I believe in empowering others through mentorship, code reviews, and sharing insights that help teams build better products.",
     ),
   ];
 
@@ -133,29 +133,29 @@ class SiteConfig {
     header: HeaderContent(
       title: "About Me",
       subtitle:
-          "Passionate mobile developer with $yearsOfExperience+ years of experience creating Flutter applications that users love.",
+          "Passionate frontend developer with $yearsOfExperience+ years of experience building mobile and web applications that users love.",
     ),
     story: StoryContent(
       title: "My Story",
       paragraphs: [
-        "I started my development journey with Kotlin and Android about $yearsOfExperience years ago, building native Android apps and learning the ropes of mobile development. But everything changed when I discovered Flutter a year later – I was blown away by how I could create beautiful apps for both platforms with a single codebase, and Dart's clean syntax just clicked with me.",
-        "Since diving into Flutter, I've helped startups and businesses bring their mobile app ideas to life. I'm passionate about clean code, smooth animations, and creating apps that feel truly native on both iOS and Android – not just 'good enough' cross-platform apps.",
-        "When I'm not deep in Flutter code, you'll find me exploring the latest mobile design patterns, contributing to Flutter packages, or helping other developers make the transition to mobile development. I believe great code should be maintainable and love sharing what I've learned with the Flutter community.",
+        "I started my development journey with Kotlin and Android about $yearsOfExperience years ago, building native Android apps and learning the fundamentals of mobile development. But everything changed when I discovered Flutter – I was amazed by how I could create beautiful apps for multiple platforms with a single codebase, and Dart's clean syntax just resonated with me.",
+        "Since then, I've expanded my expertise across the development spectrum. While Flutter remains my go-to for mobile apps, I've also built responsive web applications using React, Next.js, and TypeScript. I help startups and businesses bring their ideas to life across mobile and web platforms, always focusing on performance, eye-catching user interfaces, and user experiences that feel native to each platform.",
+        "Beyond coding, I'm keen on knowledge sharing. Whether I'm conducting code reviews, onboarding new developers, or leading technical workshops, I find fulfillment in helping others grow their skills. When I'm not building applications or tutoring, you'll find me exploring the latest development patterns, contributing to open-source projects, and staying current with both mobile and web technologies.",
       ],
     ),
     skills: skillsData,
     values: valuesData,
     technologies: [
       "Flutter",
-      "Dart",
       "Jaspr",
+      "React",
+      "Tailwind CSS",
+      "Python",
       "Riverpod",
       "Provider",
       "Firebase",
       "Serverpod",
       "Supabase",
-      "VS Code",
-      "Xcode",
       "Git",
     ],
   );
@@ -187,106 +187,120 @@ class SiteConfig {
   ];
 
   static const List<ServiceModel> services = [
-  ServiceModel(
-    icon: lucide.smartphone,
-    title: 'Mobile App Development',
-    description:
-        'End-to-end Flutter apps for iOS and Android with beautiful UIs, smooth performance, and seamless backend integration.',
-    features: [
-      'Cross-platform development',
-      'Native performance',
-      'Backend & API integration',
-      'Real-time data sync'
-    ],
-  ),
-  ServiceModel(
-    icon: lucide.searchCheck,
-    title: 'Free App Audit',
-    description:
-        'Comprehensive analysis of your existing app\'s performance, security, and user experience with actionable recommendations.',
-    features: [
-      'Performance analysis',
-      'Security assessment',
-      'UX evaluation',
-      'Improvement roadmap'
-    ],
-  ),
-  ServiceModel(
-    icon: lucide.graduationCap,
-    title: 'Python Programming Instruction',
-    description:
-        'Comprehensive Python training from fundamentals to advanced concepts, tailored for beginners and professionals.',
-    features: [
-      'Beginner to advanced curriculum',
-      'Data science & web development',
-      'Hands-on projects',
-      'Personalized learning path'
-    ],
-  ),
-  ServiceModel(
-    icon: lucide.code,
-    title: 'JavaScript Tutoring',
-    description:
-        'Expert JavaScript instruction covering modern ES6+, frameworks, and full-stack development principles.',
-    features: [
-      'Modern JavaScript (ES6+)',
-      'Frontend frameworks',
-      'Node.js & backend development',
-      'Interactive coding sessions'
-    ],
-  ),
-  ServiceModel(
-    icon: lucide.messageCircle,
-    title: 'Mobile App Consultation',
-    description:
-        'Expert guidance and strategic planning for your mobile app project from concept to launch.',
-    features: [
-      'Project feasibility analysis',
-      'Technology recommendations',
-      'Development roadmap',
-      'Cost estimation'
-    ],
-  ),
-  ServiceModel(
-    icon: lucide.globe,
-    title: 'Web Development',
-    description:
-        'Modern web applications using Flutter Web and Jaspr for consistent experiences across platforms.',
-    features: ['Responsive design', 'PWA capabilities', 'SEO optimization'],
-  ),
-];
+    ServiceModel(
+      icon: lucide.smartphone,
+      title: 'Mobile App Development',
+      description:
+          'End-to-end Flutter apps for iOS and Android with beautiful UIs, smooth performance, and seamless backend integration.',
+      features: [
+        'Cross-platform development',
+        'Native performance',
+        'Backend & API integration',
+        'Real-time data sync'
+      ],
+    ),
+    ServiceModel(
+      icon: lucide.searchCheck,
+      title: 'Free App Audit',
+      description:
+          'Comprehensive analysis of your existing app\'s performance, security, and user experience with actionable recommendations.',
+      features: [
+        'Performance analysis',
+        'Security assessment',
+        'UX evaluation',
+        'Improvement roadmap'
+      ],
+    ),
+    ServiceModel(
+      icon: lucide.messageCircle,
+      title: 'Mobile App Consultation',
+      description:
+          'Expert guidance and strategic planning for your mobile app project from concept to launch.',
+      features: [
+        'Project feasibility analysis',
+        'Technology recommendations',
+        'Development roadmap',
+        'Cost estimation'
+      ],
+    ),
+    ServiceModel(
+      icon: lucide.globe,
+      title: 'Web Development',
+      description:
+          'Modern web applications using Jaspr and React for consistent experiences across platforms.',
+      features: [
+        'Responsive web design',
+        'PWA capabilities',
+        'SEO optimization',
+        'Backend integration'
+      ],
+    ),
+    ServiceModel(
+      icon: lucide.settings,
+      title: 'App Maintenance & Support',
+      description:
+          'Ongoing support and maintenance to keep your app updated, secure, and performing at its best.',
+      features: [
+        'Regular updates',
+        'Bug fixes',
+        'Performance optimization',
+        'Feature enhancements'
+      ],
+    ),
+    ServiceModel(
+      icon: lucide.code,
+      title: 'Mobile Development Training',
+      description:
+          'In-depth Dart/Flutter training covering everything from basics to advanced topics, designed for aspiring mobile developers.',
+      features: [
+        'Dart programming fundamentals',
+        'Comprehensive Flutter curriculum',
+        'State management techniques',
+        'Backend integration',
+        'Real-world projects',
+      ],
+    ),
+    // ServiceModel(
+    //   icon: lucide.graduationCap,
+    //   title: 'Python Programming Instruction',
+    //   description:
+    //       'Comprehensive Python programming courses for beginners and intermediates, focusing on practical applications and real-world projects.',
+    //   features: [
+    //     'Fundamentals of Python & OOP',
+    //     'Hands-on, project-based learning',
+    //     'Scripting and automation basics',
+    //     'Introduction to data analysis',
+    //     'Foundational concepts in cybersecurity',
+    //     'Simple game development with Python',
+    //   ],
+    // ),
+  ];
 
-    // Technologies data organized by categories
+  // Technologies data organized by categories
   static const List<TechnologyCategory> technologiesData = [
     TechnologyCategory(
       name: 'Mobile Development',
-      technologies: ['Flutter', 'Dart', 'iOS', 'Android', 'React Native'],
+      technologies: ['Flutter', 'Dart', 'iOS', 'Android'],
     ),
     TechnologyCategory(
       name: 'Backend & Cloud',
-      technologies: ['Firebase', 'Serverpod', 'Node.js', 'PostgreSQL', 'MongoDB'],
+      technologies: ['Firebase', 'Serverpod', 'Supabase', 'GitHub Actions'],
     ),
     TechnologyCategory(
       name: 'Web Development',
-      technologies: ['Jaspr', 'Tailwind CSS', 'HTML5', 'CSS3', 'JavaScript'],
+      technologies: ['Jaspr', 'React', 'TypeScript', 'Next.js', 'Tailwind CSS'],
     ),
     TechnologyCategory(
       name: 'Tools & Platforms',
-      technologies: ['Git', 'Docker', 'VS Code', 'Figma', 'Postman'],
+      technologies: ['Git', 'Postman', 'Shorebird'],
     ),
     TechnologyCategory(
       name: 'State Management',
-      technologies: ['Riverpod', 'Provider', 'Bloc', 'GetX', 'MobX'],
+      technologies: ['Riverpod', 'Provider'],
     ),
     TechnologyCategory(
       name: 'Testing & Quality',
-      technologies: [
-        'Unit Testing',
-        'Widget Testing',
-        'Integration Testing',
-        'CI/CD',
-        'Code Review'
-      ],
+      technologies: ['Unit & Widget Testing', 'Integration Testing', 'CI/CD'],
     ),
   ];
 }

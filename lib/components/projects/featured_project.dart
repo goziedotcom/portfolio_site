@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
-import 'package:jaspr_router/jaspr_router.dart';
 import 'package:portfolio_site/components/ui/badge.dart';
 import 'package:portfolio_site/components/ui/button.dart';
 import 'package:portfolio_site/components/ui/card.dart';
@@ -120,24 +119,28 @@ class FeaturedProjectCard extends StatelessComponent {
       classes: 'flex space-x-3',
       [
         if (project.liveUrl != null)
-          Link(
-            to: project.liveUrl!,
+          a(
+            href: project.liveUrl!,
             target: Target.blank,
-            child: TButton.primary(
-              text: 'Live Demo',
-              icon: lucide.externalLink,
-              size: ButtonSize.small,
-            ),
+            [
+              TButton.primary(
+                text: 'Live Demo',
+                icon: lucide.externalLink,
+                size: ButtonSize.small,
+              ),
+            ],
           ),
         if (project.githubUrl != null && project.isGithubPublic)
-          Link(
-            to: project.githubUrl!,
+          a(
+            href: project.githubUrl!,
             target: Target.blank,
-            child: TButton.outline(
-              text: 'Code',
-              icon: lucide.github,
-              size: ButtonSize.small,
-            ),
+            [
+              TButton.outline(
+                text: 'Code',
+                icon: lucide.github,
+                size: ButtonSize.small,
+              ),
+            ],
           ),
       ],
     );

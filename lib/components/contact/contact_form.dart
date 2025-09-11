@@ -57,10 +57,11 @@ class ContactFormCardState extends State<ContactFormCard> {
     yield Document.head(
       children: [
         link(
-          href: 'https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css',
+          href: 'https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css',
           rel: 'stylesheet',
         ),
-        script(src: 'https://cdn.jsdelivr.net/npm/toastify-js', []),
+        script(src: 'https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js', []),
+        script(src: 'js/contact_form.js', []),
       ],
     );
 
@@ -127,7 +128,6 @@ class ContactFormCardState extends State<ContactFormCard> {
                       options: MessageType.values
                           .map((type) => SelectOption(value: type, label: type.label))
                           .toList(),
-                      // onChanged: (value) => setState(() => _messageType = value),
                       placeholder: 'Select message type',
                     ),
 
@@ -136,7 +136,6 @@ class ContactFormCardState extends State<ContactFormCard> {
                       id: 'subject',
                       labelText: 'Subject',
                       placeholder: 'Brief subject line',
-                      // value: _subject,
                       onChanged: (value) => (),
                       isRequired: false,
                       minLength: 5,

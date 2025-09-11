@@ -33,7 +33,7 @@ class HeroSection extends StatelessComponent {
               ],
             ),
 
-            // Scroll indicator - Client-rendered (hidden on mobile)
+            // Scroll indicator (hidden on mobile)
             div(
               classes: 'hidden md:block', // Hidden on mobile, visible from medium screens up
               [
@@ -93,7 +93,12 @@ class HeroSection extends StatelessComponent {
               [
                 span(
                   classes: 'typing-animation',
-                  [text('Mobile Developer & Instructor')],
+                  [
+                    span(
+                      classes: 'text-with-cursor',
+                      [text('Mobile Developer & Instructor')],
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -103,8 +108,9 @@ class HeroSection extends StatelessComponent {
               classes: 'text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0',
               [
                 text(
-                    'Crafting exceptional mobile experiences with Flutter, Dart, and modern development tools. '),
-                text('4 years of turning ideas into beautiful, performant mobile applications.'),
+                    'Crafting robust mobile and web experiences with Flutter, React, Jaspr, and modern development tools. '),
+                text(
+                    '4 years of turning ideas into beautiful, performant applications across platforms.'),
               ],
             ),
           ],
@@ -113,7 +119,7 @@ class HeroSection extends StatelessComponent {
         // Stats section
         _buildStatsSection(),
 
-        // CTA Buttons - Client-rendered
+        // CTA Buttons
         // HeroCTAButtons(),
 
         // Social Links
@@ -141,32 +147,32 @@ class HeroSection extends StatelessComponent {
           ],
         ),
 
-        // Years Flutter
+        // Years Web Dev
         div(
           classes: 'text-center',
           [
             div(
               classes: 'text-2xl md:text-3xl font-bold gradient-text',
-              [text('${int.parse(SiteConfig.yearsOfExperience) - 1}+')],
+              [text('${int.parse(SiteConfig.yearsOfExperience) - 2}+')],
             ),
             div(
               classes: 'text-sm text-muted-foreground',
-              [text('Years Flutter')],
+              [text('Years Web Dev')],
             ),
           ],
         ),
 
-        // Projects Built
+        // Clients Worked With
         div(
           classes: 'text-center',
           [
             div(
               classes: 'text-2xl md:text-3xl font-bold gradient-text',
-              [text(SiteConfig.projectsBuilt)],
+              [text('${SiteConfig.clientsServed}')],
             ),
             div(
               classes: 'text-sm text-muted-foreground',
-              [text('Projects Built')],
+              [text('Clients Worked With')],
             ),
           ],
         ),
@@ -174,36 +180,43 @@ class HeroSection extends StatelessComponent {
     );
   }
 
-  Component _buildSocialLinks() {
-    return div(
-      classes: 'flex gap-4 justify-center lg:justify-start',
-      [
-        // GitHub
-        _buildSocialLink(
-          icon: lucide.github,
-          href: 'https://github.com/goziedotcom',
-          label: 'Visit GitHub Profile',
-        ),
+  Component _buildCustomIcon(String svgPath, {double size = 20, bool isStroke = false}) {
+  return DomComponent(
+    tag: 'svg',
+    attributes: {
+      'width': '$size',
+      'height': '$size',
+      'viewBox': '0 0 24 24',
+      'fill': isStroke ? 'none' : 'currentColor',
+      'stroke': isStroke ? 'currentColor' : 'none',
+      'stroke-width': isStroke ? '2' : '0',
+      'stroke-linecap': 'round',
+      'stroke-linejoin': 'round',
+      'xmlns': 'http://www.w3.org/2000/svg',
+    },
+    children: [
+      DomComponent(
+        tag: 'path',
+        attributes: {
+          'd': svgPath,
+        },
+      ),
+    ],
+  );
+}
 
-        // LinkedIn
-        _buildSocialLink(
-          icon: lucide.linkedin,
-          href: 'https://linkedin.com/in/gozieihejirika',
-          label: 'Visit LinkedIn Profile',
-        ),
+// Medium icon SVG path (outline)
+static const mediumSvgPath = 'M4.5 12a4.5 4.5 0 1 0 9 0 4.5 4.5 0 1 0-9 0zM15 12c0 2.5.5 4.5 1.5 4.5s1.5-2 1.5-4.5-.5-4.5-1.5-4.5-1.5 2-1.5 4.5zM20.5 12c0 2.5.25 4.5.75 4.5s.75-2 .75-4.5-.25-4.5-.75-4.5-.75 2-.75 4.5z';
 
-        // Twitter
-        _buildSocialLink(
-          icon: lucide.twitter,
-          href: 'https://twitter.com/goziedotcom',
-          label: 'Visit Twitter Profile',
-        ),
-      ],
-    );
-  }
+// Hashnode icon SVG path (outline) - simplified rounded square with circle
+static const hashnodeSvgPath = 'M8 2h8a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z';
 
-  Component _buildSocialLink({
-    required LucideIcon icon,
+// Or if you want a more accurate Hashnode logo (rotated square with circle):
+static const hashnodeAltSvgPath = 'M12 2.69l8.31 8.31-8.31 8.31L3.69 12 12 2.69M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z';
+// Modified social link builder for custom icons
+  Component _buildSocialLinkCustom({
+    Component? customIcon,
+    LucideIcon? icon,
     required String href,
     required String label,
   }) {
@@ -218,11 +231,57 @@ class HeroSection extends StatelessComponent {
         'title': label,
       },
       [
-        TIcon(
-          lucideIcon: icon,
-          theme: IconTheme.monochrome,
-          width: const Unit.pixels(20),
-          height: const Unit.pixels(20),
+        if (icon != null)
+          TIcon(
+            lucideIcon: icon,
+            theme: IconTheme.monochrome,
+            width: const Unit.pixels(20),
+            height: const Unit.pixels(20),
+          )
+        else if (customIcon != null)
+          customIcon,
+      ],
+    );
+  }
+
+// Updated social links
+  Component _buildSocialLinks() {
+    return div(
+      classes: 'flex gap-4 justify-center lg:justify-start',
+      [
+        // GitHub
+        _buildSocialLinkCustom(
+          icon: lucide.github,
+          href: 'https://github.com/goziedotcom',
+          label: 'Visit GitHub Profile',
+        ),
+
+        // LinkedIn
+        _buildSocialLinkCustom(
+          icon: lucide.linkedin,
+          href: 'https://linkedin.com/in/gozieihejirika',
+          label: 'Visit LinkedIn Profile',
+        ),
+
+        // Twitter
+        _buildSocialLinkCustom(
+          icon: lucide.twitter,
+          href: 'https://twitter.com/goziedotcom',
+          label: 'Visit Twitter Profile',
+        ),
+
+        // Medium with custom SVG
+        _buildSocialLinkCustom(
+          customIcon: _buildCustomIcon(mediumSvgPath),
+          href: 'https://medium.com/@goziedotcom',
+          label: 'Visit Medium Profile',
+        ),
+
+        // Hashnode with custom SVG
+        _buildSocialLinkCustom(
+          customIcon: _buildCustomIcon(hashnodeSvgPath),
+          href: 'https://hashnode.com/@goziedotcom',
+          label: 'Visit Hashnode Profile',
         ),
       ],
     );

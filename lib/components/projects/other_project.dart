@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
-import 'package:jaspr_router/jaspr_router.dart';
 import 'package:portfolio_site/components/ui/badge.dart';
 import 'package:portfolio_site/components/ui/button.dart';
 import 'package:portfolio_site/components/ui/card.dart';
@@ -86,8 +85,9 @@ class OtherProjectCard extends StatelessComponent {
           variant: project.status == ProjectStatus.completed
               ? BadgeVariant.outline
               : BadgeVariant.secondary,
-          additionalClasses:
-             project.status == ProjectStatus.completed ? 'border-primary text-primary': 'text-xs "text-muted-foreground',
+          additionalClasses: project.status == ProjectStatus.completed
+              ? 'border-primary text-primary'
+              : 'text-xs "text-muted-foreground',
           children: [text(project.status.displayName)],
         )
       ],
@@ -131,26 +131,30 @@ class OtherProjectCard extends StatelessComponent {
       classes: 'flex space-x-2',
       [
         if (project.liveUrl != null)
-          Link(
-            to: project.liveUrl!,
+          a(
+            href: project.liveUrl!,
             target: Target.blank,
-            child: TButton.outline(
-              text: 'Demo',
-              icon: lucide.externalLink,
-              size: ButtonSize.small,
-              customClasses: 'px-3 py-1.5',
-            ),
+            [
+              TButton.outline(
+                text: 'Demo',
+                icon: lucide.externalLink,
+                size: ButtonSize.small,
+                customClasses: 'px-3 py-1.5',
+              ),
+            ],
           ),
         if (project.githubUrl != null && project.isGithubPublic)
-          Link(
-            to: project.githubUrl!,
+          a(
+            href: project.githubUrl!,
             target: Target.blank,
-            child: TButton.outline(
-              text: 'Code',
-              icon: lucide.github,
-              size: ButtonSize.small,
-              customClasses: 'px-3 py-1.5',
-            ),
+            [
+              TButton.outline(
+                text: 'Code',
+                icon: lucide.github,
+                size: ButtonSize.small,
+                customClasses: 'px-3 py-1.5',
+              ),
+            ],
           ),
       ],
     );

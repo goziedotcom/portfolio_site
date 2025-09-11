@@ -46,7 +46,7 @@ class TechnologiesSection extends StatelessComponent {
         p(
           classes: 'text-xl text-muted-foreground max-w-2xl mx-auto',
           [
-            text('Modern tools and technologies I use to build exceptional mobile experiences'),
+            text('Modern tools and technologies I use to build cutting-edge digital experiences'),
           ],
         ),
       ],
