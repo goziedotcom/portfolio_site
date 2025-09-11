@@ -70,7 +70,7 @@ jobs:
           touch build/web/.nojekyll
           
           # Create CNAME file (replace with your domain)
-          echo "yourdomain.com" > build/web/CNAME
+          echo "gozieihejirika.com" > build/web/CNAME
           
       - name: Setup Pages
         uses: actions/configure-pages@v5
