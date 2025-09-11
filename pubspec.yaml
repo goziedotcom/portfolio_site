@@ -3,7 +3,7 @@
   version: 0.0.1
 
   environment:
-    sdk: '^3.5.3'
+    sdk: '^3.7.0'
 
   dependencies:
     dio: ^5.8.0+1
