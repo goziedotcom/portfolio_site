@@ -45,6 +45,15 @@ jobs:
       - name: Install dependencies
         run: dart pub get
         
+      - name: Create API keys file from secrets
+        run: |
+          mkdir -p lib/services/remote
+          cat > lib/services/remote/api_keys.dart << EOF
+          const GITHUB_TOKEN = "${{ secrets.GH_TOKEN }}";
+          const GITHUB_OWNER = "${{ secrets.GH_OWNER }}";
+          const GITHUB_REPO = "${{ secrets.GH_REPO }}";
+          EOF
+        
       - name: Build Jaspr app
         run: dart run build_runner build web --delete-conflicting-outputs
         
