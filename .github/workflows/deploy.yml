@@ -96,8 +96,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload the built web directory
-          path: 'build/web'
+          # Upload the built jaspr directory
+          path: 'build/jaspr'
           
       - name: Deploy to GitHub Pages
         id: deployment
