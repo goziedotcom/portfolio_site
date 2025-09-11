@@ -34,7 +34,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          flutter-version: '3.24.3'
           channel: 'stable'
         
       - name: Setup Dart
@@ -46,7 +46,7 @@ jobs:
         run: dart pub get
         
       - name: Build Jaspr app
-        run: dart run build_runner build web --delete-conflicting-outputs
+        run: jaspr build
         
       - name: Create SPA routing files
         run: |
@@ -76,7 +76,7 @@ jobs:
           touch build/web/.nojekyll
           
           # Create CNAME file (replace with your domain)
-          echo "gozieihejirika.com" > build/web/CNAME
+          echo "yourdomain.com" > build/web/CNAME
           
       - name: Setup Pages
         uses: actions/configure-pages@v5
