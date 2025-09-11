@@ -1,8 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 import 'package:portfolio_site/components/ui/button.dart';
+import 'package:portfolio_site/services/interop/scroll_interop.dart';
 @Import.onWeb('package:portfolio_site/services/interop/scroll_interop.dart', show: [#customScroll])
-import 'scroll_to_next.imports.dart';
 
 // @client
 class ScrollToNextSection extends StatelessComponent {

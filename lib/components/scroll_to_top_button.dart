@@ -2,10 +2,8 @@ import 'dart:async';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 import 'package:portfolio_site/components/ui/button.dart';
+import 'package:portfolio_site/services/interop/scroll_interop.dart';
 import 'package:universal_web/web.dart' as web;
-
-@Import.onWeb('package:portfolio_site/services/interop/scroll_interop.dart', show: [#customScroll])
-import 'scroll_to_top_button.imports.dart';
 
 // @client
 class ScrollToTopButton extends StatefulComponent {
