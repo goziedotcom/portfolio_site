@@ -62,7 +62,7 @@ jobs:
         
       - name: Create SPA routing files
         run: |
-          # Create 404.html for SPA routing in build/jaspr directory
+          # Create simple 404.html that just redirects to home
           cat > build/jaspr/404.html << 'EOF'
           <!DOCTYPE html>
           <html>
@@ -70,26 +70,13 @@ jobs:
               <meta charset="utf-8">
               <title>Redirecting...</title>
               <script>
-                  // GitHub Pages project site segment count (1 for username.github.io/repo-name)
-                  var segmentCount = 1;
-                  var l = window.location;
-                  
-                  // For custom domain, use 0 segments
-                  if (l.hostname !== 'goziedotcom.github.io') {
-                      segmentCount = 0;
-                  }
-                  
-                  l.replace(
-                      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-                      '/' + l.pathname.slice(1).split('/').slice(0, segmentCount).join('/') +
-                      (segmentCount > 0 ? '/' : '') +
-                      '?p=/' + l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
-                      (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-                      l.hash
-                  );
+                  // Simple redirect to home page
+                  window.location.replace('/');
               </script>
           </head>
-          <body></body>
+          <body>
+              <p>Redirecting...</p>
+          </body>
           </html>
           EOF
           
