@@ -9,7 +9,7 @@ const notyf = new Notyf({
 });
 
 function showSuccessToast(message) {
-    if (typeof notyf === 'undefined') {
+    if (typeof Notyf === 'undefined') {
         console.error('Notyf library not loaded! Falling back to alert.');
         alert('Success: ' + message);
         return;
@@ -18,7 +18,7 @@ function showSuccessToast(message) {
 }
 
 function showErrorToast(message) {
-    if (typeof notyf === 'undefined') {
+    if (typeof Notyf === 'undefined') {
         console.error('Notyf library not loaded! Falling back to alert.');
         alert('Error: ' + message);
         return;

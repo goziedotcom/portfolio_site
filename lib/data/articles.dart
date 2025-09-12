@@ -1,0 +1,122 @@
+List<Map<String, dynamic>> articlesData = [
+  {
+    "id": "flutter-clean-architecture",
+    "title": "Building Scalable Flutter Apps with Clean Architecture",
+    "excerpt": "Learn how to structure your Flutter applications using clean architecture principles for better maintainability and testability.",
+    "articleUrl": "https://dev.to/gozie/building-scalable-flutter-apps-clean-architecture",
+    "tags": ["Flutter", "Architecture", "Clean Code", "Best Practices"],
+    "imageUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=200&fit=crop&crop=center",
+    "publishedAt": "2024-11-15T00:00:00.000Z",
+    "readTimeMinutes": 8,
+    "category": "Architecture",
+    "isFeatured": true
+  },
+  {
+    "id": "riverpod-vs-provider",
+    "title": "State Management in Flutter: Riverpod vs Provider",
+    "excerpt": "A comprehensive comparison of popular state management solutions in Flutter, with practical examples and best practices.",
+    "articleUrl": "https://medium.com/@gozie/state-management-flutter-riverpod-vs-provider",
+    "tags": ["Flutter", "Riverpod", "Provider", "State Management"],
+    "imageUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop&crop=center",
+    "publishedAt": "2024-10-28T00:00:00.000Z",
+    "readTimeMinutes": 12,
+    "category": "State Management",
+    "isFeatured": true
+  },
+  {
+    "id": "flutter-performance-optimization",
+    "title": "Optimizing Flutter App Performance",
+    "excerpt": "Essential techniques to make your Flutter apps run smoothly on all devices, from memory management to widget optimization.",
+    "articleUrl": "https://dev.to/gozie/optimizing-flutter-app-performance",
+    "tags": ["Flutter", "Performance", "Optimization", "Mobile"],
+    "imageUrl": "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=200&fit=crop&crop=center",
+    "publishedAt": "2024-10-12T00:00:00.000Z",
+    "readTimeMinutes": 10,
+    "category": "Performance",
+    "isFeatured": false
+  },
+  {
+    "id": "firebase-integration-guide",
+    "title": "Firebase Integration Made Simple",
+    "excerpt": "Step-by-step guide to integrating Firebase services in your Flutter app, from authentication to real-time database.",
+    "articleUrl": "https://medium.com/@gozie/firebase-integration-made-simple",
+    "tags": ["Firebase", "Flutter", "Backend", "Authentication"],
+    "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=200&fit=crop&crop=center",
+    "publishedAt": "2024-09-30T00:00:00.000Z",
+    "readTimeMinutes": 15,
+    "category": "Backend",
+    "isFeatured": false
+  },
+  {
+    "id": "getting-started-jaspr",
+    "title": "Getting Started with Jaspr: The Future of Dart Web Development",
+    "excerpt": "Discover how Jaspr is revolutionizing web development with Dart. Learn the basics and build your first server-side rendered application.",
+    "articleUrl": "https://dev.to/gozie/getting-started-jaspr-dart-web-development",
+    "tags": ["Jaspr", "Dart", "Web Development", "SSR"],
+    "imageUrl": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=200&fit=crop&crop=center",
+    "publishedAt": "2024-12-10T00:00:00.000Z",
+    "readTimeMinutes": 8,
+    "category": "Web Development",
+    "isFeatured": true
+  },
+  {
+    "id": "dart-web-performance",
+    "title": "Optimizing Web Performance with Dart and Jaspr",
+    "excerpt": "Learn advanced techniques for building lightning-fast web applications using Dart and Jaspr framework.",
+    "articleUrl": "https://medium.com/@gozie/optimizing-web-performance-dart-jaspr",
+    "tags": ["Performance", "Dart", "Jaspr", "Optimization"],
+    "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center",
+    "publishedAt": "2024-11-28T00:00:00.000Z",
+    "readTimeMinutes": 12,
+    "category": "Performance",
+    "isFeatured": true
+  },
+  {
+    "id": "state-management-riverpod",
+    "title": "State Management in Jaspr with Riverpod",
+    "excerpt": "Master state management in your Jaspr applications using Riverpod. From basics to advanced patterns.",
+    "articleUrl": "https://hashnode.com/@gozie/state-management-jaspr-riverpod",
+    "tags": ["Riverpod", "State Management", "Jaspr", "Architecture"],
+    "imageUrl": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop&crop=center",
+    "publishedAt": "2024-11-15T00:00:00.000Z",
+    "readTimeMinutes": 15,
+    "category": "State Management",
+    "isFeatured": false
+  },
+  {
+    "id": "responsive-design-tailwind",
+    "title": "Building Responsive UIs with Tailwind CSS and Jaspr",
+    "excerpt": "Create beautiful, responsive user interfaces that work perfectly across all devices using Tailwind CSS with Jaspr.",
+    "articleUrl": "https://dev.to/gozie/responsive-design-tailwind-css-jaspr",
+    "tags": ["Tailwind CSS", "Responsive Design", "UI/UX", "Jaspr"],
+    "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop&crop=center",
+    "publishedAt": "2024-10-30T00:00:00.000Z",
+    "readTimeMinutes": 10,
+    "category": "UI/UX",
+    "isFeatured": false
+  },
+  {
+    "id": "dart-future-web",
+    "title": "Why Dart is the Future of Web Development",
+    "excerpt": "Explore the unique advantages Dart brings to web development and why it's becoming the go-to choice for modern applications.",
+    "articleUrl": "https://medium.com/@gozie/why-dart-future-web-development",
+    "tags": ["Dart", "Web Development", "Future", "Technology"],
+    "imageUrl": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=200&fit=crop&crop=center",
+    "publishedAt": "2024-10-15T00:00:00.000Z",
+    "readTimeMinutes": 7,
+    "category": "Technology",
+    "isFeatured": false
+  },
+  {
+    "id": "jaspr-vs-flutter-web",
+    "title": "Jaspr vs Flutter Web: Choosing the Right Framework",
+    "excerpt": "A comprehensive comparison between Jaspr and Flutter Web to help you choose the best framework for your next project.",
+    "articleUrl": "https://hashnode.com/@gozie/jaspr-vs-flutter-web-comparison",
+    "tags": ["Jaspr", "Flutter Web", "Comparison", "Framework"],
+    "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop&crop=center",
+    "publishedAt": "2024-09-20T00:00:00.000Z",
+    "readTimeMinutes": 11,
+    "category": "Framework Comparison",
+    "isFeatured": false
+  }
+];

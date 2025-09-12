@@ -83,7 +83,13 @@ jobs:
           
           # Create CNAME file
           echo "gozieihejirika.com" > build/jaspr/CNAME
-        
+      
+      - name: Setup SPA redirect
+        run: |
+          # Create _redirects file for SPA routing (Netlify style)
+          cat > build/jaspr/_redirects << EOF
+          /*    /index.html   200
+          EOF
       - name: Setup Pages
         uses: actions/configure-pages@v5
         

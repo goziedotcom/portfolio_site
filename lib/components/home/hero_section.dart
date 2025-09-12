@@ -208,11 +208,8 @@ class HeroSection extends StatelessComponent {
 // Medium icon SVG path (outline)
 static const mediumSvgPath = 'M4.5 12a4.5 4.5 0 1 0 9 0 4.5 4.5 0 1 0-9 0zM15 12c0 2.5.5 4.5 1.5 4.5s1.5-2 1.5-4.5-.5-4.5-1.5-4.5-1.5 2-1.5 4.5zM20.5 12c0 2.5.25 4.5.75 4.5s.75-2 .75-4.5-.25-4.5-.75-4.5-.75 2-.75 4.5z';
 
-// Hashnode icon SVG path (outline) - simplified rounded square with circle
-static const hashnodeSvgPath = 'M8 2h8a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z';
-
 // Or if you want a more accurate Hashnode logo (rotated square with circle):
-static const hashnodeAltSvgPath = 'M12 2.69l8.31 8.31-8.31 8.31L3.69 12 12 2.69M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z';
+static const hashnodeSvgPath = 'M12 2.69l8.31 8.31-8.31 8.31L3.69 12 12 2.69M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z';
 // Modified social link builder for custom icons
   Component _buildSocialLinkCustom({
     Component? customIcon,

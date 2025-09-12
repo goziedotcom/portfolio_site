@@ -52,7 +52,6 @@ final routes = [
     path: '/',
     builder: (context, state) => LazyComponent(
       loader: () async {
-        await Future.delayed(Duration(milliseconds: 500));
         final projects = await RemoteService().getProjects();
         final articles = await RemoteService().getArticles();
         return Home(projects: projects, articles: articles);
@@ -66,7 +65,6 @@ final routes = [
     load: about.loadLibrary,
     builder: (context, state) => LazyComponent(
       loader: () async {
-        await Future.delayed(Duration(milliseconds: 500));
         final achievements = await RemoteService().getAchievements();
         return about.AboutPage(achievements: achievements);
       },
@@ -79,7 +77,6 @@ final routes = [
     load: projects.loadLibrary,
     builder: (context, state) => LazyComponent(
       loader: () async {
-        await Future.delayed(Duration(milliseconds: 500));
         final projectsList = await RemoteService().getProjects();
         return projects.ProjectsPage(projects: projectsList);
       },
@@ -92,7 +89,6 @@ final routes = [
     load: articles.loadLibrary,
     builder: (context, state) => LazyComponent(
       loader: () async {
-        await Future.delayed(Duration(milliseconds: 500));
         final articlesList = await RemoteService().getArticles();
         return articles.ArticlesPage(articles: articlesList);
       },
