@@ -34,7 +34,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.0'
+          flutter-version: '3.29.0'
           channel: 'stable'
         
       - name: Setup Dart
@@ -51,7 +51,7 @@ jobs:
           chmod +x tailwindcss-linux-x64
           sudo mv tailwindcss-linux-x64 /usr/local/bin/tailwindcss
           # Verify installation
-          tailwindcss --version
+          tailwindcss --help | head -5
         
       - name: Prepare web directory for Tailwind
         run: |
@@ -84,36 +84,6 @@ jobs:
           # Create CNAME file
           echo "gozieihejirika.com" > build/jaspr/CNAME
         
-      - name: Create SPA routing files
-        run: |
-          # Create 404.html for SPA routing
-          cat > build/jaspr/404.html << 'EOF'
-          <!DOCTYPE html>
-          <html>
-          <head>
-              <meta charset="utf-8">
-              <title>Redirecting...</title>
-              <script>
-                  var segmentCount = 0;
-                  var l = window.location;
-                  l.replace(
-                      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-                      '/?p=/' + l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
-                      (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-                      l.hash
-                  );
-              </script>
-          </head>
-          <body></body>
-          </html>
-          EOF
-          
-          # Create .nojekyll to disable Jekyll processing
-          touch build/jaspr/.nojekyll
-          
-          # Create CNAME file (replace with your domain)
-          echo "gozieihejirika.com" > build/jaspr/CNAME
-          
       - name: Setup Pages
         uses: actions/configure-pages@v5
         
