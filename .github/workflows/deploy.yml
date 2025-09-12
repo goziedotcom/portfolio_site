@@ -31,6 +31,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0'
+          channel: 'stable'
+        
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
         with:
@@ -52,34 +58,38 @@ jobs:
         run: dart pub global activate jaspr_cli
         
       - name: Build Jaspr app
-        run: jaspr build
-
-      - name: Check build folder contents
-        run: |
-          echo "=== Build directory structure ==="
-          ls -la build/
-          echo ""
-          echo "=== Jaspr folder contents ==="
-          ls -la build/jaspr/
-          echo ""
-          echo "=== All files in build/jaspr ==="
-          find build/jaspr/ -type f -exec ls -la {} \;
-          echo ""
-          echo "=== Looking for HTML files specifically ==="
-          find build/jaspr/ -name "*.html" -type f
+        run: jaspr build --verbose
         
       - name: Create SPA routing files
         run: |
-          # Copy index.html as 404.html so SPA can handle routing
-          cp build/jaspr/index.html build/jaspr/404.html
+          # Create 404.html for SPA routing
+          cat > build/web/404.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <meta charset="utf-8">
+              <title>Redirecting...</title>
+              <script>
+                  var segmentCount = 0;
+                  var l = window.location;
+                  l.replace(
+                      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+                      '/?p=/' + l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
+                      (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+                      l.hash
+                  );
+              </script>
+          </head>
+          <body></body>
+          </html>
+          EOF
           
           # Create .nojekyll to disable Jekyll processing
-          touch build/jaspr/.nojekyll
+          touch build/web/.nojekyll
           
-          # Create CNAME file
-          echo "gozieihejirika.com" > build/jaspr/CNAME
-
-                
+          # Create CNAME file (replace with your domain)
+          echo "gozieihejirika.com" > build/web/CNAME
+          
       - name: Setup Pages
         uses: actions/configure-pages@v5
         
