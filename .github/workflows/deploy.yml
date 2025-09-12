@@ -34,7 +34,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.0'
+          flutter-version: '3.27.0'
           channel: 'stable'
         
       - name: Setup Dart
@@ -44,6 +44,14 @@ jobs:
           
       - name: Install dependencies
         run: dart pub get
+        
+      - name: Install Tailwind CSS standalone CLI (v3.4.1)
+        run: |
+          curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.1/tailwindcss-linux-x64
+          chmod +x tailwindcss-linux-x64
+          sudo mv tailwindcss-linux-x64 /usr/local/bin/tailwindcss
+          # Verify installation
+          tailwindcss --version
         
       - name: Prepare web directory for Tailwind
         run: |
@@ -79,7 +87,7 @@ jobs:
       - name: Create SPA routing files
         run: |
           # Create 404.html for SPA routing
-          cat > build/web/404.html << 'EOF'
+          cat > build/jaspr/404.html << 'EOF'
           <!DOCTYPE html>
           <html>
           <head>
@@ -101,10 +109,10 @@ jobs:
           EOF
           
           # Create .nojekyll to disable Jekyll processing
-          touch build/web/.nojekyll
+          touch build/jaspr/.nojekyll
           
           # Create CNAME file (replace with your domain)
-          echo "gozieihejirika.com" > build/web/CNAME
+          echo "gozieihejirika.com" > build/jaspr/CNAME
           
       - name: Setup Pages
         uses: actions/configure-pages@v5
