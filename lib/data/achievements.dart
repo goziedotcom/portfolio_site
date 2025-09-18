@@ -1,22 +1,26 @@
 List<Map<String, dynamic>> timelineData = [
   {
-    "year": "2024",
-    "title": "Senior Mobile Developer",
-    "description": "Leading Flutter development for apps with 50K+ active users and 4.8+ star ratings"
+    "year": "2025",
+    "title": "Lead Mobile Developer",
+    "description":
+        "Spearheaded mobile development for a food & parcel delivery mobile ecosystem, with customer-facing, delivery agent and vendor management applications.",
   },
   {
-    "year": "2023",
-    "title": "Flutter Expert Certification",
-    "description": "Achieved advanced Flutter certification and contributed to open-source Flutter packages"
+    "year": "2024",
+    "title": "Open Source Contributor & Programming Instructor",
+    "description":
+        "Contributed to my first open source projects and mentored 20+ students in mobile development & Python.",
   },
   {
     "year": "2022",
-    "title": "Mobile Team Lead",
-    "description": "Led cross-platform mobile development team delivering 5+ successful app launches"
+    "title": "Mobile Developer",
+    "description":
+        "Worked in a cross-platform mobile development team delivering 3+ successful app launches",
   },
   {
     "year": "2021",
-    "title": "First Flutter App Launch",
-    "description": "Published first Flutter app to App Store and Google Play with 10K+ downloads"
-  }
+    "title": "Started Learning Flutter & Dart",
+    "description":
+        "Began my journey into mobile development with Flutter, building small projects and exploring the framework.",
+  },
 ];

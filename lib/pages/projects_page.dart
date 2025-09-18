@@ -50,7 +50,7 @@ class ProjectsPage extends StatelessComponent {
         ),
 
         // Interactive Projects View
-        ProjectsView(projects: projects),
+        ProjectsView(projects: projects.skip(2).toList()),
 
         // CTA Section
         div(

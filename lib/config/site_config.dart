@@ -133,7 +133,7 @@ class SiteConfig {
     header: HeaderContent(
       title: "About Me",
       subtitle:
-          "Passionate frontend developer with $yearsOfExperience+ years of experience building mobile and web applications that users love.",
+          "Seasoned mobile developer with $yearsOfExperience+ years of experience building mobile and web applications that users love.",
     ),
     story: StoryContent(
       title: "My Story",

@@ -92,7 +92,6 @@ class Footer extends StatelessComponent {
               ],
             ),
 
-            // Optional: Add a subtle decorative element
             div(
               classes: 'mt-6 pt-4 border-t border-border/30',
               [

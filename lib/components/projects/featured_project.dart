@@ -9,14 +9,10 @@ import 'package:portfolio_site/models/project_model.dart';
 class FeaturedProjectCard extends StatelessComponent {
   final Project project;
   final int index;
-  final Function(String)? onLiveDemoClick;
-  final Function(String)? onGitHubClick;
 
   const FeaturedProjectCard({
     required this.project,
     required this.index,
-    this.onLiveDemoClick,
-    this.onGitHubClick,
     Key? key,
   }) : super(key: key);
 
@@ -146,51 +142,3 @@ class FeaturedProjectCard extends StatelessComponent {
     );
   }
 }
-
-/*
-Usage Examples:
-
-// Basic usage
-FeaturedProjectCard(
-  project: myProject,
-  index: 0,
-)
-
-// With custom click handlers
-FeaturedProjectCard(
-  project: myProject,
-  index: 1,
-  onLiveDemoClick: (url) {
-    // Custom live demo handling
-    Navigator.push(context, WebViewPage(url: url));
-  },
-  onGitHubClick: (url) {
-    // Custom GitHub handling
-    showDialog(context, ConfirmationDialog(
-      title: 'Open GitHub',
-      onConfirm: () => window.open(url, '_blank'),
-    ));
-  },
-)
-
-// In a grid layout
-div(
-  classes: 'grid md:grid-cols-2 lg:grid-cols-3 gap-6',
-  [
-    for (int i = 0; i < featuredProjects.length; i++)
-      FeaturedProjectCard(
-        project: featuredProjects[i],
-        index: i,
-        onLiveDemoClick: (url) => _handleLiveDemo(url),
-        onGitHubClick: (url) => _handleGitHub(url),
-      ),
-  ],
-)
-
-Enhanced Features:
-🎯 Standalone component with clean API
-🔄 Customizable click handlers
-📱 Responsive design ready
-🎨 Consistent styling and animations
-⚡ Optimized performance with method extraction
-*/

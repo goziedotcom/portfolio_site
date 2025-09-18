@@ -3,6 +3,8 @@ import 'package:jaspr_router/jaspr_router.dart';
 import 'package:portfolio_site/components/footer.dart';
 import 'package:portfolio_site/components/lazy_loader.dart';
 import 'package:portfolio_site/components/scroll_to_top_button.dart';
+import 'package:portfolio_site/models/article_model.dart';
+import 'package:portfolio_site/models/project_model.dart';
 import 'package:portfolio_site/services/remote/remote_service.dart';
 
 import 'components/header.dart';
@@ -54,7 +56,7 @@ final routes = [
       loader: () async {
         final projects = await RemoteService().getProjects();
         final articles = await RemoteService().getArticles();
-        return Home(projects: projects, articles: articles);
+        return Home(projects: projects.latestProjects, articles: articles.latestArticles);
       },
     ),
   ),
@@ -78,7 +80,7 @@ final routes = [
     builder: (context, state) => LazyComponent(
       loader: () async {
         final projectsList = await RemoteService().getProjects();
-        return projects.ProjectsPage(projects: projectsList);
+        return projects.ProjectsPage(projects: projectsList.latestProjects);
       },
     ),
   ),
@@ -90,7 +92,7 @@ final routes = [
     builder: (context, state) => LazyComponent(
       loader: () async {
         final articlesList = await RemoteService().getArticles();
-        return articles.ArticlesPage(articles: articlesList);
+        return articles.ArticlesPage(articles: articlesList.latestArticles);
       },
     ),
   ),
