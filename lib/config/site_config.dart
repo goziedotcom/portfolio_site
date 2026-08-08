@@ -33,7 +33,7 @@ class SiteConfig {
 
   static const String yearsOfExperience = "4";
 
-  static const String clientsServed = "10+";
+  static const String appsShipped = "10+";
 
   // Meta data map for Document meta property
   static Map<String, String> get getMetaData => {
