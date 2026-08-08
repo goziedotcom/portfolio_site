@@ -162,17 +162,17 @@ class HeroSection extends StatelessComponent {
           ],
         ),
 
-        // Clients Worked With
+        // Apps shipped
         div(
           classes: 'text-center',
           [
             div(
               classes: 'text-2xl md:text-3xl font-bold gradient-text',
-              [text('${SiteConfig.clientsServed}')],
+              [text('${SiteConfig.appsShipped}')],
             ),
             div(
               classes: 'text-sm text-muted-foreground',
-              [text('Clients Worked With')],
+              [text('Apps shipped')],
             ),
           ],
         ),
