@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 import 'package:portfolio_site/components/ui/button.dart';
@@ -32,13 +33,13 @@ class ContactFormCardState extends State<ContactFormCard> {
   void _setupFormResetListener() {
     if (!kIsWeb) return; // Guard against server-side execution
 
-    _formSubscription = web.EventStreamProvider<web.Event>('formReset')
-        .forTarget(web.window)
-        .listen((_) => resetForm());
+    _formSubscription = web.EventStreamProvider<web.Event>(
+      'formReset',
+    ).forTarget(web.window).listen((_) => resetForm());
 
-    _formErrorSubscription = web.EventStreamProvider<web.Event>('formError')
-        .forTarget(web.window)
-        .listen((_) => resetForm());
+    _formErrorSubscription = web.EventStreamProvider<web.Event>(
+      'formError',
+    ).forTarget(web.window).listen((_) => resetForm());
   }
 
   void resetForm() {
@@ -53,72 +54,67 @@ class ContactFormCardState extends State<ContactFormCard> {
   }
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield Document.head(
-      children: [
-        link(
-          href: 'https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css',
-          rel: 'stylesheet',
-        ),
-        script(src: 'https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js', []),
-        script(src: 'js/contact_form.js', []),
-      ],
-    );
-
-    yield Card(
-      hoverEffect: CardHoverEffect.none,
-      children: [
-        CardHeader(
-          children: [
-            CardTitle(
-              additionalClasses: 'text-2xl gradient-text pb-1',
-              children: [text('Send a Message')],
-            ),
-          ],
-        ),
-        CardContent(
-          children: [
-            form(
-              id: "my-form",
-              action: "https://formspree.io/f/xnnzdlby",
-              method: FormMethod.post,
-              events: {
-                "submit": (e) {
-                  setState(() {
-                    _isSubmitting = true;
-                  });
-                }
-              },
-              [
-                div(
-                  classes: 'space-y-6',
-                  [
+  Component build(BuildContext context) {
+    return .fragment([
+      Document.head(
+        children: [
+          link(
+            href: 'https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css',
+            rel: 'stylesheet',
+          ),
+          script(src: 'https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js'),
+          script(src: 'js/contact_form.js'),
+        ],
+      ),
+      Card(
+        hoverEffect: CardHoverEffect.none,
+        children: [
+          CardHeader(
+            children: [
+              CardTitle(
+                additionalClasses: 'text-2xl gradient-text pb-1',
+                children: [.text('Send a Message')],
+              ),
+            ],
+          ),
+          CardContent(
+            children: [
+              form(
+                id: "my-form",
+                action: "https://formspree.io/f/xnnzdlby",
+                method: FormMethod.post,
+                events: {
+                  "submit": (e) {
+                    setState(() {
+                      _isSubmitting = true;
+                    });
+                  },
+                },
+                [
+                  div(classes: 'space-y-6', [
                     // Name and Email row
-                    div(
-                      classes: 'grid md:grid-cols-2 gap-4',
-                      [
-                        // Text Input with validation
-                        TFormField(
-                          id: 'name',
-                          labelText: 'Full Name',
-                          placeholder: 'Your name',
-                          isRequired: true,
-                          minLength: 5,
-                          maxLength: 50,
-                        ),
+                    div(classes: 'grid md:grid-cols-2 gap-4', [
+                      // Text Input with validation
+                      TFormField(
+                        id: 'name',
+                        labelText: 'Full Name',
+                        placeholder: 'Your name',
+                        isRequired: true,
+                        minLength: 5,
+                        maxLength: 50,
+                      ),
 
-                        // Email Input
-                        TFormField(
-                          id: 'email',
-                          labelText: 'Email Address',
-                          placeholder: 'your@email.com',
-                          type: 'email',
-                          isRequired: true,
-                          autocomplete: 'email',
-                          pattern: r'^[^\s@]+@[^\s@]+\.[^\s@]+$',
-                        )
-                      ],
-                    ),
+                      // Email Input
+                      TFormField(
+                        id: 'email',
+                        labelText: 'Email Address',
+                        placeholder: 'your@email.com',
+                        type: 'email',
+                        isRequired: true,
+                        autocomplete: 'email',
+                        pattern: r'^[^\s@]+@[^\s@]+\.[^\s@]+$',
+                      ),
+                    ]),
 
                     // Select dropdown
                     TSelectField<MessageType>(
@@ -126,7 +122,10 @@ class ContactFormCardState extends State<ContactFormCard> {
                       labelText: 'What is this about?',
                       name: 'messageType',
                       options: MessageType.values
-                          .map((type) => SelectOption(value: type, label: type.label))
+                          .map(
+                            (type) =>
+                                SelectOption(value: type, label: type.label),
+                          )
                           .toList(),
                       placeholder: 'Select message type',
                     ),
@@ -157,19 +156,21 @@ class ContactFormCardState extends State<ContactFormCard> {
                     // Submit Button
                     TButton(
                       text: _isSubmitting ? 'Sending...' : 'Send Message',
-                      icon: _isSubmitting ? null : lucide.send,
+                      icon: _isSubmitting ? null : lucide.Send.new,
                       fullWidth: true,
                       disabled: _isSubmitting,
-                      customClasses: _isSubmitting ? 'opacity-75 cursor-not-allowed' : null,
+                      customClasses: _isSubmitting
+                          ? 'opacity-75 cursor-not-allowed'
+                          : null,
                       type: ButtonType.submit,
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
+                    ),
+                  ]),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    ]);
   }
 }

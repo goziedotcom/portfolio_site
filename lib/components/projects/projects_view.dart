@@ -1,5 +1,6 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr_lucide/jaspr_lucide.dart' show listFilter;
+import 'package:jaspr_lucide/jaspr_lucide.dart' show ListFilter;
 import 'package:portfolio_site/components/projects/other_project.dart';
 import 'package:portfolio_site/components/ui/button.dart';
 import 'package:portfolio_site/components/ui/icon.dart';
@@ -17,8 +18,12 @@ class ProjectsView extends StatefulComponent {
 class _ProjectsViewState extends State<ProjectsView> {
   String _selectedCategory = 'All';
 
-  List<Project> get _filteredProjects =>
-      component.projects.getProjectsByCategory(_selectedCategory);
+  List<Project> get _filteredProjects {
+    if (_selectedCategory == 'All') {
+      return component.projects.skip(2).toList(); // Skip the first two featured projects
+    }
+    return component.projects.getProjectsByCategory(_selectedCategory);
+  }
 
   void _selectCategory(String category) {
     setState(() {
@@ -27,49 +32,31 @@ class _ProjectsViewState extends State<ProjectsView> {
   }
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
+  Component build(BuildContext context) {
+    return div(
       classes: 'py-8', // Reduced padding since parent handles spacing
       [
-        div(
-          classes: 'container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl',
-          [
-            // Filter Section
-            _buildFilterSection(component.projects.availableCategories),
+        div(classes: 'container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl', [
+          // Filter Section
+          _buildFilterSection(component.projects.availableCategories),
 
-            // Projects Grid
-            _buildProjectsGrid(),
-          ],
-        ),
+          // Projects Grid
+          _buildProjectsGrid(),
+        ]),
       ],
     );
   }
 
   Component _buildFilterSection(List<String> categories) {
-    return div(
-      classes: 'mb-8',
-      [
-        div(
-          classes: 'flex items-center space-x-4 mb-6',
-          [
-            TIcon(
-              lucideIcon: listFilter,
-              theme: IconTheme.monochrome,
-            ),
-            span(
-              classes: 'font-medium',
-              [text('Filter by category:')],
-            ),
-          ],
-        ),
-        div(
-          classes: 'flex flex-wrap gap-3',
-          [
-            for (String category in categories) _buildFilterButton(category),
-          ],
-        ),
-      ],
-    );
+    return div(classes: 'mb-8', [
+      div(classes: 'flex items-center space-x-4 mb-6', [
+        TIcon(lucideIcon: ListFilter.new, theme: IconTheme.monochrome),
+        span(classes: 'font-medium', [.text('Filter by category:')]),
+      ]),
+      div(classes: 'flex flex-wrap gap-3', [
+        for (String category in categories) _buildFilterButton(category),
+      ]),
+    ]);
   }
 
   Component _buildFilterButton(String category) {
@@ -94,15 +81,12 @@ class _ProjectsViewState extends State<ProjectsView> {
   }
 
   Component _buildProjectsGrid() {
-    return div(
-      classes: 'grid md:grid-cols-2 lg:grid-cols-3 gap-8',
-      [
-        for (final project in _filteredProjects)
-          OtherProjectCard(
-            project: project,
-            index: _filteredProjects.indexOf(project),
-          ),
-      ],
-    );
+    return div(classes: 'grid md:grid-cols-2 lg:grid-cols-3 gap-8', [
+      for (final project in _filteredProjects)
+        OtherProjectCard(
+          project: project,
+          index: _filteredProjects.indexOf(project),
+        ),
+    ]);
   }
 }

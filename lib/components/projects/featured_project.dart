@@ -1,8 +1,10 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 import 'package:portfolio_site/components/ui/badge.dart';
 import 'package:portfolio_site/components/ui/button.dart';
 import 'package:portfolio_site/components/ui/card.dart';
+import 'package:portfolio_site/components/ui/custom_icon.dart';
 import 'package:portfolio_site/models/project_model.dart';
 
 // Featured Project Card Component
@@ -17,8 +19,8 @@ class FeaturedProjectCard extends StatelessComponent {
   }) : super(key: key);
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield Card(
+  Component build(BuildContext context) {
+    return Card(
       hoverEffect: CardHoverEffect.glow, // Enhanced hover for featured projects
       additionalClasses:
           'group overflow-hidden animate-bounce-in hover:shadow-glow transition-all duration-300',
@@ -27,11 +29,7 @@ class FeaturedProjectCard extends StatelessComponent {
         // Project Image with enhanced hover effects
         _buildProjectImage(),
 
-        CardHeader(
-          children: [
-            _buildCardHeader(),
-          ],
-        ),
+        CardHeader(children: [_buildCardHeader()]),
 
         CardContent(
           children: [
@@ -51,13 +49,11 @@ class FeaturedProjectCard extends StatelessComponent {
         img(
           classes:
               'w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out',
-          src: project.imageUrl ??
+          src:
+              project.imageUrl ??
               'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=300&fit=crop',
           alt: project.title,
-          attributes: {
-            'loading': 'lazy',
-            'decoding': 'async',
-          },
+          attributes: {'loading': 'lazy', 'decoding': 'async'},
         ),
 
         // Overlay gradient on hover
@@ -71,74 +67,58 @@ class FeaturedProjectCard extends StatelessComponent {
   }
 
   Component _buildCardHeader() {
-    return div(
-      classes: 'flex items-start justify-between',
-      [
-        CardTitle(
-          additionalClasses: 'text-xl group-hover:text-primary transition-colors duration-300',
-          children: [text(project.title)],
-        ),
-        Badge(
-          variant: BadgeVariant.outline,
-          additionalClasses: 'border-primary text-primary',
-          children: [text(project.category)],
-        )
-      ],
-    );
+    return div(classes: 'flex items-start justify-between', [
+      CardTitle(
+        additionalClasses:
+            'text-xl group-hover:text-primary transition-colors duration-300',
+        children: [.text(project.title)],
+      ),
+      Badge(
+        variant: BadgeVariant.outline,
+        additionalClasses: 'border-primary text-primary',
+        children: [.text(project.category)],
+      ),
+    ]);
   }
 
   Component _buildProjectDescription() {
     return p(
       classes:
           'text-muted-foreground mb-4 leading-relaxed group-hover:text-foreground/80 transition-colors duration-300',
-      [text(project.description)],
+      [.text(project.description)],
     );
   }
 
   Component _buildTechnologyBadges() {
-    return div(
-      classes: 'flex flex-wrap gap-2 mb-6',
-      [
-        for (String tech in project.technologies)
-          Badge(
-            variant: BadgeVariant.secondary,
-            additionalClasses:
-                'text-xs hover:bg-primary/10 hover:text-primary transition-colors duration-200 cursor-default',
-            children: [text(tech)],
-          ),
-      ],
-    );
+    return div(classes: 'flex flex-wrap gap-2 mb-6', [
+      for (String tech in project.technologies)
+        Badge(
+          variant: BadgeVariant.secondary,
+          additionalClasses:
+              'text-xs hover:bg-primary/10 hover:text-primary transition-colors duration-200 cursor-default',
+          children: [.text(tech)],
+        ),
+    ]);
   }
 
   Component _buildActionButtons() {
-    return div(
-      classes: 'flex space-x-3',
-      [
-        if (project.liveUrl != null)
-          a(
-            href: project.liveUrl!,
-            target: Target.blank,
-            [
-              TButton.primary(
-                text: 'Live Demo',
-                icon: lucide.externalLink,
-                size: ButtonSize.small,
-              ),
-            ],
+    return div(classes: 'flex space-x-3', [
+      if (project.liveUrl != null)
+        a(href: project.liveUrl!, target: Target.blank, [
+          TButton.primary(
+            text: 'Live Demo',
+            icon: lucide.ExternalLink.new,
+            size: ButtonSize.small,
           ),
-        if (project.githubUrl != null && project.isGithubPublic)
-          a(
-            href: project.githubUrl!,
-            target: Target.blank,
-            [
-              TButton.outline(
-                text: 'Code',
-                icon: lucide.github,
-                size: ButtonSize.small,
-              ),
-            ],
+        ]),
+      if (project.githubUrl != null && project.isGithubPublic)
+        a(href: project.githubUrl!, target: Target.blank, [
+          TButton.outline(
+            text: 'Code',
+            icon: CustomIcon.github,
+            size: ButtonSize.small,
           ),
-      ],
-    );
+        ]),
+    ]);
   }
 }

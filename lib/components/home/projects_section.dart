@@ -1,3 +1,4 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'package:portfolio_site/components/projects/alt_featured_project.dart';
@@ -10,74 +11,53 @@ class ProjectsSection extends StatelessComponent {
   final List<Project> projects;
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
+  Component build(BuildContext context) {
     final featuredProjects = projects.take(4).toList();
 
-    yield section(
+    return section(
       id: 'projects',
       classes: 'py-20 bg-gradient-to-b from-secondary/20 to-background',
       [
-        div(
-          classes: 'container mx-auto px-4 sm:px-6 lg:px-8',
-          [
-            // Section Header
-            _buildSectionHeader(),
+        div(classes: 'container mx-auto px-4 sm:px-6 lg:px-8', [
+          // Section Header
+          _buildSectionHeader(),
 
-            // Featured Projects (Large cards with images)
-            if (featuredProjects.isNotEmpty) ...[
-              _buildFeaturedProjects(featuredProjects),
-            ],
-
-            // View All Projects CTA
-            div(classes: 'text-center', [
-              TButton.outline(
-                text: 'View All Projects',
-                subtleBorder: false,
-                onClick: () => context.push('/projects'),
-              )
-            ]),
+          // Featured Projects (Large cards with images)
+          if (featuredProjects.isNotEmpty) ...[
+            _buildFeaturedProjects(featuredProjects),
           ],
-        ),
+
+          // View All Projects CTA
+          div(classes: 'text-center', [
+            TButton.outline(
+              text: 'View All Projects',
+              subtleBorder: false,
+              onClick: () => context.push('/projects'),
+            ),
+          ]),
+        ]),
       ],
     );
   }
 
   Component _buildSectionHeader() {
-    return div(
-      classes: 'text-center mb-16',
-      [
-        h2(
-          classes: 'text-3xl md:text-4xl font-bold font-display mb-4',
-          [
-            text('Featured '),
-            span(
-              classes: 'gradient-text',
-              [text('Projects')],
-            ),
-          ],
+    return div(classes: 'text-center mb-16', [
+      h2(classes: 'text-3xl md:text-4xl font-bold font-display mb-4', [
+        .text('Featured '),
+        span(classes: 'gradient-text', [.text('Projects')]),
+      ]),
+      p(classes: 'text-xl text-muted-foreground max-w-2xl mx-auto', [
+        .text(
+          'Showcasing some of my favorite works, spanning various technologies and industries',
         ),
-        p(
-          classes: 'text-xl text-muted-foreground max-w-2xl mx-auto',
-          [
-            text('Showcasing some of my favorite works, spanning various technologies and industries'),
-          ],
-        ),
-      ],
-    );
+      ]),
+    ]);
   }
 
   Component _buildFeaturedProjects(List<Project> featuredProjects) {
-    return div(
-      classes: 'grid lg:grid-cols-2 gap-8 mb-16',
-      [
-        for (int index = 0; index < featuredProjects.length; index++)
-          AltFeaturedProjectCard(
-            project: featuredProjects[index],
-            index: index,
-          ),
-      ],
-    );
+    return div(classes: 'grid lg:grid-cols-2 gap-8 mb-16', [
+      for (int index = 0; index < featuredProjects.length; index++)
+        AltFeaturedProjectCard(project: featuredProjects[index], index: index),
+    ]);
   }
 }
-
-

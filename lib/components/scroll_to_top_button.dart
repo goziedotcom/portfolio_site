@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 import 'package:portfolio_site/components/ui/button.dart';
@@ -7,12 +8,14 @@ import 'package:universal_web/web.dart' as web;
 
 // @client
 class ScrollToTopButton extends StatefulComponent {
-  final double showAtViewportFraction; // show after scrolling x fraction of viewport height
+  final double
+  showAtViewportFraction; // show after scrolling x fraction of viewport height
   final int scrollDurationMs;
   final String? customClasses;
 
   const ScrollToTopButton({
-    this.showAtViewportFraction = 1.0, // Show after scrolling fraction of screen height
+    this.showAtViewportFraction =
+        1.0, // Show after scrolling fraction of screen height
     this.scrollDurationMs = 800,
     this.customClasses,
     super.key,
@@ -50,12 +53,14 @@ class _ScrollToTopButtonState extends State<ScrollToTopButton> {
 
   void _setupEventListeners() {
     // Listen for scroll events
-    _scrollSubscription =
-        web.EventStreamProviders.scrollEvent.forTarget(web.window).listen(_handleScroll);
+    _scrollSubscription = web.EventStreamProviders.scrollEvent
+        .forTarget(web.window)
+        .listen(_handleScroll);
 
     // Listen for resize events to recalculate threshold
-    _resizeSubscription =
-        web.EventStreamProviders.resizeEvent.forTarget(web.window).listen(_handleResize);
+    _resizeSubscription = web.EventStreamProviders.resizeEvent
+        .forTarget(web.window)
+        .listen(_handleResize);
   }
 
   // ============================================================================
@@ -105,10 +110,10 @@ class _ScrollToTopButtonState extends State<ScrollToTopButton> {
   // ============================================================================
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    if (!_isVisible) return;
+  Component build(BuildContext context)  {
+    if (!_isVisible) return Component.empty(); // Don't render if not visible
 
-    yield div(
+    return div(
       classes: [
         'fixed bottom-6 right-6 z-50',
         'transition-all duration-300',
@@ -118,7 +123,7 @@ class _ScrollToTopButtonState extends State<ScrollToTopButton> {
       ].join(' '),
       [
         TButton(
-          icon: lucide.arrowUp,
+          icon: lucide.ArrowUp.new,
           iconOnly: true,
           onClick: _scrollToTop,
           customClasses: [
@@ -131,7 +136,7 @@ class _ScrollToTopButtonState extends State<ScrollToTopButton> {
             'aria-label': 'Scroll to top',
             'title': 'Scroll to top',
           },
-        )
+        ),
       ],
     );
   }

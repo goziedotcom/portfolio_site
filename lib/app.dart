@@ -1,3 +1,4 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'package:portfolio_site/components/footer.dart';
@@ -34,8 +35,8 @@ class _AppState extends State<App> {
   }
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
+  Component build(BuildContext context) {
+    return div(
       classes: 'min-h-screen flex flex-col bg-bg-primary theme-transition',
       [
         const Header(),
@@ -56,11 +57,14 @@ final routes = [
       loader: () async {
         final projects = await RemoteService().getProjects();
         final articles = await RemoteService().getArticles();
-        return Home(projects: projects.latestProjects, articles: articles.latestArticles);
+        return Home(
+          projects: projects.latestProjects,
+          articles: articles.latestArticles,
+        );
       },
     ),
   ),
-  
+
   // About route - lazy loaded
   Route.lazy(
     path: '/about',
@@ -72,7 +76,7 @@ final routes = [
       },
     ),
   ),
-  
+
   // Projects route - lazy loaded
   Route.lazy(
     path: '/projects',
@@ -84,7 +88,7 @@ final routes = [
       },
     ),
   ),
-  
+
   // Articles route - lazy loaded
   Route.lazy(
     path: '/articles',
@@ -96,7 +100,7 @@ final routes = [
       },
     ),
   ),
-  
+
   // Contact route - lazy loaded
   Route.lazy(
     path: '/contact',

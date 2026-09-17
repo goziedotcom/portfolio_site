@@ -19,7 +19,12 @@ List<Map<String, dynamic>> projectsData = [
     "title": "WakaFoods - Multi-Vendor Food Delivery Platform",
     "description":
         "A robust multi-vendor food delivery platform with real-time order tracking, secure payments, and a user-friendly interface.",
-    "technologies": ["Flutter", "Dart", "Firebase", "Google Maps API"],
+    "technologies": [
+      "React Native",
+      "TypeScript",
+      "Firebase",
+      "Google Maps API",
+    ],
     "imageUrl": "/images/wakafoods.png",
     "liveUrl": "https://wakafoods.com/",
     "githubUrl": null,
@@ -27,9 +32,9 @@ List<Map<String, dynamic>> projectsData = [
     "isFeatured": true,
     "status": "completed",
     "isGithubPublic": false,
-    "category": "Flutter",
+    "category": "React Native",
   },
-  // Professional Link aggregator site (links.gozieihejirika.com), built with react vite and tailwind css 
+  // Professional Link aggregator site (links.gozieihejirika.com), built with react vite and tailwind css
   {
     "id": "professional-link-aggregator-site",
     "title": "Professional Link Aggregator Site",
@@ -43,15 +48,15 @@ List<Map<String, dynamic>> projectsData = [
     "isFeatured": false,
     "status": "completed",
     "isGithubPublic": true,
-    "category": "Web Development",   
+    "category": "Web Development",
   },
   // Wakajugbe - Ride Hailing App
   {
     "id": "wakajugbe-ride-hailing-app",
     "title": "Wakajugbe - Ride Hailing App",
     "description":
-        "A feature-rich ride-hailing app with real-time tracking, secure payments, and user reviews. Built with Flutter and Node.js for a seamless user experience.",
-    "technologies": ["Flutter", "Dart", "Firebase", "Google Maps API"],
+        "A feature-rich ride-hailing app with real-time tracking, secure payments, and user reviews. Built with React Native and Node.js for a seamless user experience.",
+    "technologies": ["React Native", "TypeScript", "Clerk", "Google Maps API"],
     "imageUrl": "/images/wakajugbe.png",
     "liveUrl": "https://www.wakajugbe.com/",
     "githubUrl": null,
@@ -59,7 +64,7 @@ List<Map<String, dynamic>> projectsData = [
     "isFeatured": false,
     "status": "in-progress",
     "isGithubPublic": false,
-    "category": "Flutter",
+    "category": "React Native",
   },
   // ErrandWaka - On-Demand Errand Platform
   {
@@ -101,7 +106,8 @@ List<Map<String, dynamic>> projectsData = [
         "A vendor app for restaurant management with order tracking, menu management, and sales analytics. Built with Flutter and Firebase.",
     "technologies": ["Flutter", "Dart", "Firebase Cloud Messaging"],
     "imageUrl": "/images/peakreach-vendor.png",
-    "liveUrl": "https://play.google.com/store/apps/details?id=com.peakreach.peakreach_restaurant_mobile&pcampaignid=web_share",
+    "liveUrl":
+        "https://play.google.com/store/apps/details?id=com.peakreach.peakreach_restaurant_mobile&pcampaignid=web_share",
     "githubUrl": null,
     "createdAt": "2025-07-01T00:00:00.000Z",
     "isFeatured": false,

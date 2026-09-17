@@ -1,3 +1,6 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 import 'package:portfolio_site/components/ui/icon.dart';
@@ -19,20 +22,24 @@ class SlidingThemeToggle extends StatelessComponent {
   }) : super(key: key);
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
+  Component build(BuildContext context) {
     // Determine if switch should be "on" (dark mode)
-    bool isOn = themeMode == ThemeMode.dark || (themeMode == ThemeMode.system && isDark);
+    bool isOn =
+        themeMode == ThemeMode.dark ||
+        (themeMode == ThemeMode.system && isDark);
 
     String tooltip = themeMode == ThemeMode.system
         ? 'Using system theme (${isDark ? 'dark' : 'light'})'
         : isOn
-            ? 'Switch to light mode'
-            : 'Switch to dark mode';
+        ? 'Switch to light mode'
+        : 'Switch to dark mode';
 
     // Switch track classes (keep original styling)
     String trackClasses =
         'relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none cursor-pointer';
-    trackClasses += isOn ? ' bg-gray-800 dark:bg-gray-700' : ' bg-gray-200 dark:bg-gray-600';
+    trackClasses += isOn
+        ? ' bg-gray-800 dark:bg-gray-700'
+        : ' bg-gray-200 dark:bg-gray-600';
 
     // Knob classes with sliding animation and thinner border (only knob bg is transparent)
     String knobClasses =
@@ -47,12 +54,15 @@ class SlidingThemeToggle extends StatelessComponent {
     knobClasses += isOn ? ' translate-x-7 bg-black' : ' translate-x-1 bg-white';
 
     // Apply border color via style since we need precise color control
-    Map<String, String> knobStyles =
-        isOn ? {'border-color': darkBorderColor} : {'border-color': lightBorderColor};
+    Map<String, String> knobStyles = isOn
+        ? {'border-color': darkBorderColor}
+        : {'border-color': lightBorderColor};
 
-    String finalClasses = customClasses != null ? '$trackClasses $customClasses' : trackClasses;
+    String finalClasses = customClasses != null
+        ? '$trackClasses $customClasses'
+        : trackClasses;
 
-    yield button(
+    return button(
       classes: finalClasses,
       attributes: {
         'type': 'button',
@@ -61,26 +71,22 @@ class SlidingThemeToggle extends StatelessComponent {
         'aria-label': tooltip,
         'title': tooltip,
       },
-      events: {
-        'click': (event) => onToggle(),
-      },
+      events: {'click': (event) => onToggle()},
       [
         // Sliding knob with icon
-        span(
-          classes: knobClasses,
-          styles: Styles(raw: knobStyles),
-          [
-            TIcon(
-              lucideIcon: isOn ? lucide.moon : lucide.sun,
-              theme: IconTheme.monochrome,
-              width: const Unit.pixels(14),
-              height: const Unit.pixels(14),
-              customStyles: {
-                'color': isOn ? darkIconColor : lightIconColor, // Match border color
-              },
-            ),
-          ],
-        ),
+        span(classes: knobClasses, styles: Styles(raw: knobStyles), [
+          TIcon(
+            lucideIcon: isOn ? lucide.Moon.new : lucide.Sun.new,
+            theme: IconTheme.monochrome,
+            width: const Unit.pixels(14),
+            height: const Unit.pixels(14),
+            customStyles: {
+              'color': isOn
+                  ? darkIconColor
+                  : lightIconColor, // Match border color
+            },
+          ),
+        ]),
       ],
     );
   }
@@ -102,7 +108,7 @@ class ThemeToggle extends StatelessComponent {
   }) : super(key: key);
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
+  Component build(BuildContext context) {
     // Determine icon and tooltip based on theme mode
     Component icon;
     String tooltip;
@@ -111,7 +117,7 @@ class ThemeToggle extends StatelessComponent {
     switch (themeMode) {
       case ThemeMode.light:
         icon = TIcon(
-          lucideIcon: lucide.sun,
+          lucideIcon: lucide.Sun.new,
           theme: IconTheme.monochrome,
           width: const Unit.pixels(16),
           height: const Unit.pixels(16),
@@ -121,7 +127,7 @@ class ThemeToggle extends StatelessComponent {
         break;
       case ThemeMode.dark:
         icon = TIcon(
-          lucideIcon: lucide.moon,
+          lucideIcon: lucide.Moon.new,
           theme: IconTheme.monochrome,
           width: const Unit.pixels(16),
           height: const Unit.pixels(16),
@@ -131,7 +137,7 @@ class ThemeToggle extends StatelessComponent {
         break;
       case ThemeMode.system:
         icon = TIcon(
-          lucideIcon: isDark ? lucide.moon : lucide.sun,
+          lucideIcon: isDark ? lucide.Moon.new : lucide.Sun.new,
           theme: IconTheme.monochrome,
           width: const Unit.pixels(16),
           height: const Unit.pixels(16),
@@ -145,18 +151,14 @@ class ThemeToggle extends StatelessComponent {
     String baseClasses =
         'p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-secondary-foreground transition-all duration-300 border border-border/50 backdrop-blur-sm group';
 
-    String finalClasses = customClasses != null ? '$baseClasses $customClasses' : baseClasses;
+    String finalClasses = customClasses != null
+        ? '$baseClasses $customClasses'
+        : baseClasses;
 
-    yield button(
+    return button(
       classes: finalClasses,
-      attributes: {
-        'type': 'button',
-        'title': tooltip,
-        'aria-label': tooltip,
-      },
-      events: {
-        'click': (event) => onToggle(),
-      },
+      attributes: {'type': 'button', 'title': tooltip, 'aria-label': tooltip},
+      events: {'click': (event) => onToggle()},
       [
         span(
           classes:
@@ -190,7 +192,7 @@ SlidingThemeToggle(
 div(
   classes: 'flex items-center justify-between p-4',
   [
-    text('Theme'),
+    .text('Theme'),
     SlidingThemeToggle(
       themeMode: themeMode,
       isDark: isDark,

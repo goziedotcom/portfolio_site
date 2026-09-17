@@ -1,3 +1,4 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 
@@ -6,17 +7,18 @@ enum IconTheme {
   purple, // dark purple/light purple
 }
 
-typedef LucideIcon = Component Function({
-  Unit? width,
-  Unit? height,
-  String? viewBox,
-  Map<String, String>? attributes,
-  String? id,
-  Key? key,
-  String? classes,
-  Styles? styles,
-  Map<String, EventCallback>? events,
-});
+typedef LucideIcon =
+    Component Function({
+      Unit? width,
+      Unit? height,
+      String? viewBox,
+      Map<String, String>? attributes,
+      String? id,
+      Key? key,
+      String? classes,
+      Styles? styles,
+      Map<String, EventCallback>? events,
+    });
 
 class TIcon extends StatelessComponent {
   final LucideIcon lucideIcon;
@@ -53,7 +55,7 @@ class TIcon extends StatelessComponent {
     Map<String, EventCallback>? events,
   }) {
     return TIcon(
-      lucideIcon: lucide.mail,
+      lucideIcon: lucide.Mail.new,
       theme: theme,
       width: width,
       height: height,
@@ -76,7 +78,7 @@ class TIcon extends StatelessComponent {
     Map<String, EventCallback>? events,
   }) {
     return TIcon(
-      lucideIcon: lucide.settings,
+      lucideIcon: lucide.Settings.new,
       theme: theme,
       width: width,
       height: height,
@@ -99,7 +101,7 @@ class TIcon extends StatelessComponent {
     Map<String, EventCallback>? events,
   }) {
     return TIcon(
-      lucideIcon: lucide.sun,
+      lucideIcon: lucide.Sun.new,
       theme: theme,
       width: width,
       height: height,
@@ -122,7 +124,7 @@ class TIcon extends StatelessComponent {
     Map<String, EventCallback>? events,
   }) {
     return TIcon(
-      lucideIcon: lucide.moon,
+      lucideIcon: lucide.Moon.new,
       theme: theme,
       width: width,
       height: height,
@@ -135,7 +137,7 @@ class TIcon extends StatelessComponent {
   }
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
+  Component build(BuildContext context) {
     // Base classes WITHOUT hardcoded sizing - let width/height attributes control size
     String baseClasses = '';
     Map<String, String> styleMap = {};
@@ -154,18 +156,19 @@ class TIcon extends StatelessComponent {
     }
 
     // Combine custom classes
-    String finalClasses = customClasses != null ? '$baseClasses $customClasses' : baseClasses;
+    String finalClasses = customClasses != null
+        ? '$baseClasses $customClasses'
+        : baseClasses;
 
     // Combine custom styles
-    Map<String, String> finalStyleMap = {
-      ...styleMap,
-      ...?customStyles,
-    };
+    Map<String, String> finalStyleMap = {...styleMap, ...?customStyles};
 
     // Create Styles object only if we have styles to apply
-    Styles? finalStyles = finalStyleMap.isNotEmpty ? Styles(raw: finalStyleMap) : null;
+    Styles? finalStyles = finalStyleMap.isNotEmpty
+        ? Styles(raw: finalStyleMap)
+        : null;
 
-    yield lucideIcon(
+    return lucideIcon(
       classes: finalClasses,
       width: width ?? const Unit.pixels(24),
       height: height ?? const Unit.pixels(24),

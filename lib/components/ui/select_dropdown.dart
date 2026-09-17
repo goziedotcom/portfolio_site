@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/generated_icons/chevron_down.dart';
 import 'package:portfolio_site/components/ui/icon.dart';
@@ -47,7 +48,8 @@ class _TSelectFieldComponentState<T> extends State<TSelectField<T>> {
   @override
   void initState() {
     super.initState();
-    _currentValue = component.initialValue; // Initialize with provided initial value
+    _currentValue =
+        component.initialValue; // Initialize with provided initial value
     // Only set up listeners on the client side
     if (kIsWeb) {
       _setupFormResetListener();
@@ -67,16 +69,17 @@ class _TSelectFieldComponentState<T> extends State<TSelectField<T>> {
   void _setupFormResetListener() {
     if (!kIsWeb) return; // Guard against server-side execution
 
-    _resetSubscription = web.EventStreamProvider<web.Event>('formReset')
-        .forTarget(web.window)
-        .listen((_) => _resetDropdown());
+    _resetSubscription = web.EventStreamProvider<web.Event>(
+      'formReset',
+    ).forTarget(web.window).listen((_) => _resetDropdown());
   }
 
   void _setupClickOutsideListener() {
     if (!kIsWeb) return; // Guard against server-side execution
 
-    _clickSubscription =
-        web.EventStreamProviders.clickEvent.forTarget(web.document).listen(_handleOutsideClick);
+    _clickSubscription = web.EventStreamProviders.clickEvent
+        .forTarget(web.document)
+        .listen(_handleOutsideClick);
   }
 
   void _cleanupListeners() {
@@ -141,24 +144,28 @@ class _TSelectFieldComponentState<T> extends State<TSelectField<T>> {
     return component.options
         .firstWhere(
           (opt) => opt.value == _currentValue,
-          orElse: () => SelectOption<T>(value: _currentValue!, label: _currentValue.toString()),
+          orElse: () => SelectOption<T>(
+            value: _currentValue!,
+            label: _currentValue.toString(),
+          ),
         )
         .label;
   }
 
   String get _triggerClasses => [
-        'custom-select-trigger',
-        if (component.disabled) 'disabled opacity-50 cursor-not-allowed',
-      ].join(' ');
+    'custom-select-trigger',
+    if (component.disabled) 'disabled opacity-50 cursor-not-allowed',
+  ].join(' ');
 
   Map<String, String> get _triggerAttributes => {
-        'role': 'button',
-        'tabindex': component.disabled ? '-1' : '0',
-        'aria-haspopup': 'listbox',
-        'aria-expanded': _isDropdownOpen.toString(),
-        if (component.isRequired) 'aria-required': 'true',
-        if (component.errorMessage != null) 'aria-describedby': '${component.id}-error',
-      };
+    'role': 'button',
+    'tabindex': component.disabled ? '-1' : '0',
+    'aria-haspopup': 'listbox',
+    'aria-expanded': _isDropdownOpen.toString(),
+    if (component.isRequired) 'aria-required': 'true',
+    if (component.errorMessage != null)
+      'aria-describedby': '${component.id}-error',
+  };
 
   // ============================================================================
   // BUILD METHODS
@@ -172,7 +179,6 @@ class _TSelectFieldComponentState<T> extends State<TSelectField<T>> {
       name: component.name!,
       value: _currentValue?.toString() ?? '',
       id: '${component.id}-hidden',
-      [],
     );
   }
 
@@ -180,7 +186,7 @@ class _TSelectFieldComponentState<T> extends State<TSelectField<T>> {
     return label(
       attributes: {'for': component.id},
       classes: 'block text-sm font-medium text-foreground',
-      [text('${component.labelText}${component.isRequired ? ' *' : ''}')],
+      [.text('${component.labelText}${component.isRequired ? ' *' : ''}')],
     );
   }
 
@@ -192,20 +198,19 @@ class _TSelectFieldComponentState<T> extends State<TSelectField<T>> {
       events: events(onClick: _toggleDropdown),
       [
         span(
-          classes: _currentValue == null && component.placeholder != null ? 'placeholder-text' : '',
-          [text(_displayLabel)],
+          classes: _currentValue == null && component.placeholder != null
+              ? 'placeholder-text'
+              : '',
+          [.text(_displayLabel)],
         ),
-        div(
-          classes: 'select-arrow',
-          [
-            TIcon(
-              lucideIcon: chevronDown,
-              theme: IconTheme.monochrome,
-              width: const Unit.pixels(16),
-              height: const Unit.pixels(16),
-            )
-          ],
-        ),
+        div(classes: 'select-arrow', [
+          TIcon(
+            lucideIcon: ChevronDown.new,
+            theme: IconTheme.monochrome,
+            width: const Unit.pixels(16),
+            height: const Unit.pixels(16),
+          ),
+        ]),
       ],
     );
   }
@@ -218,7 +223,8 @@ class _TSelectFieldComponentState<T> extends State<TSelectField<T>> {
       attributes: {'role': 'listbox', 'tabindex': '-1'},
       [
         // Placeholder option
-        if (component.placeholder != null && _currentValue == null) _buildPlaceholderOption(),
+        if (component.placeholder != null && _currentValue == null)
+          _buildPlaceholderOption(),
 
         // Regular options
         ...component.options.map(_buildOption),
@@ -234,7 +240,7 @@ class _TSelectFieldComponentState<T> extends State<TSelectField<T>> {
         'aria-selected': 'true',
         'aria-disabled': 'true',
       },
-      [text(component.placeholder!)],
+      [.text(component.placeholder!)],
     );
   }
 
@@ -253,8 +259,10 @@ class _TSelectFieldComponentState<T> extends State<TSelectField<T>> {
         if (option.disabled) 'aria-disabled': 'true',
         'tabindex': option.disabled ? '-1' : '0',
       },
-      events: option.disabled ? null : events(onClick: () => _selectOption(option.value)),
-      [text(option.label)],
+      events: option.disabled
+          ? null
+          : events(onClick: () => _selectOption(option.value)),
+      [.text(option.label)],
     );
   }
 
@@ -264,28 +272,21 @@ class _TSelectFieldComponentState<T> extends State<TSelectField<T>> {
     return div(
       id: '${component.id}-error',
       classes: 'text-sm text-destructive',
-      [text(component.errorMessage!)],
+      [.text(component.errorMessage!)],
     );
   }
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
-      classes: 'space-y-2',
-      [
-        _buildHiddenInput(),
-        _buildLabel(),
-        div(
-          id: '${component.id}-container',
-          classes: 'relative',
-          [
-            _buildTrigger(),
-            _buildDropdownList(),
-          ],
-        ),
-        _buildErrorMessage(),
-      ],
-    );
+  Component build(BuildContext context) {
+    return div(classes: 'space-y-2', [
+      _buildHiddenInput(),
+      _buildLabel(),
+      div(id: '${component.id}-container', classes: 'relative', [
+        _buildTrigger(),
+        _buildDropdownList(),
+      ]),
+      _buildErrorMessage(),
+    ]);
   }
 }
 

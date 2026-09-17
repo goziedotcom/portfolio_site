@@ -50,3 +50,6 @@ app.*.map.json
 
 # API keys file
 /lib/services/remote/api_keys.dart
+
+# FVM Version Cache
+.fvm/

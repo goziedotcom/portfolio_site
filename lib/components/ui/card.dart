@@ -1,11 +1,12 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
 // Enhanced Card Component with New Hover Effects
 enum CardHoverEffect {
-  none,     // No hover animation
-  subtle,   // Subtle inner glow (default)
-  glow,     // Medium glow effect
-  scale,    // Scale with inner glow effect
+  none, // No hover animation
+  subtle, // Subtle inner glow (default)
+  glow, // Medium glow effect
+  scale, // Scale with inner glow effect
   slideBar, // Sliding bar from center (like your screenshot)
 }
 
@@ -41,13 +42,14 @@ class Card extends StatelessComponent {
   }
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    final baseClasses = 'rounded-lg border bg-card text-card-foreground shadow-sm';
+  Component build(BuildContext context) {
+    final baseClasses =
+        'rounded-lg border bg-card text-card-foreground shadow-sm';
     final hoverClass = _hoverClass;
     final allClasses =
         '$baseClasses ${hoverClass.isNotEmpty ? '$hoverClass ' : ''}${additionalClasses ?? ''}';
 
-    yield div(
+    return div(
       classes: allClasses,
       styles: styles != null ? Styles(raw: styles!) : null,
       attributes: attributes,
@@ -60,15 +62,11 @@ class CardHeader extends StatelessComponent {
   final List<Component> children;
   final String? additionalClasses;
 
-  const CardHeader({
-    super.key,
-    required this.children,
-    this.additionalClasses,
-  });
+  const CardHeader({super.key, required this.children, this.additionalClasses});
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
+  Component build(BuildContext context) {
+    return div(
       classes: 'flex flex-col space-y-1.5 p-6 ${additionalClasses ?? ''}',
       children,
     );
@@ -79,16 +77,13 @@ class CardTitle extends StatelessComponent {
   final List<Component> children;
   final String? additionalClasses;
 
-  const CardTitle({
-    super.key,
-    required this.children,
-    this.additionalClasses,
-  });
+  const CardTitle({super.key, required this.children, this.additionalClasses});
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield h3(
-      classes: 'text-2xl font-semibold leading-none tracking-tight ${additionalClasses ?? ''}',
+  Component build(BuildContext context) {
+    return h3(
+      classes:
+          'text-2xl font-semibold leading-none tracking-tight ${additionalClasses ?? ''}',
       children,
     );
   }
@@ -105,8 +100,8 @@ class CardDescription extends StatelessComponent {
   });
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield p(
+  Component build(BuildContext context) {
+    return p(
       classes: 'text-sm text-muted-foreground ${additionalClasses ?? ''}',
       children,
     );
@@ -124,11 +119,8 @@ class CardContent extends StatelessComponent {
   });
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
-      classes: 'p-6 pt-0 ${additionalClasses ?? ''}',
-      children,
-    );
+  Component build(BuildContext context) {
+    return div(classes: 'p-6 pt-0 ${additionalClasses ?? ''}', children);
   }
 }
 
@@ -136,15 +128,11 @@ class CardFooter extends StatelessComponent {
   final List<Component> children;
   final String? additionalClasses;
 
-  const CardFooter({
-    super.key,
-    required this.children,
-    this.additionalClasses,
-  });
+  const CardFooter({super.key, required this.children, this.additionalClasses});
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
+  Component build(BuildContext context) {
+    return div(
       classes: 'flex items-center p-6 pt-0 ${additionalClasses ?? ''}',
       children,
     );
@@ -159,11 +147,11 @@ Card(
   hoverEffect: CardHoverEffect.subtle, // or omit for default
   children: [
     CardHeader(children: [
-      CardTitle(children: [text('Project Title')]),
-      CardDescription(children: [text('Project description')]),
+      CardTitle(children: [.text('Project Title')]),
+      CardDescription(children: [.text('Project description')]),
     ]),
     CardContent(children: [
-      text('Card content here'),
+      .text('Card content here'),
     ]),
   ],
 )
@@ -172,7 +160,7 @@ Card(
 Card(
   hoverEffect: CardHoverEffect.slideBar,
   children: [
-    CardContent(children: [text('Project with sliding bar effect')]),
+    CardContent(children: [.text('Project with sliding bar effect')]),
   ],
 )
 
@@ -181,7 +169,7 @@ Card(
   hoverEffect: CardHoverEffect.slideBar,
   additionalClasses: 'min-h-[200px] bg-red-100', // Add visible background to test
   children: [
-    CardContent(children: [text('DEBUG: Hover over this card to see the sliding bar')]),
+    CardContent(children: [.text('DEBUG: Hover over this card to see the sliding bar')]),
   ],
 )
 
@@ -189,7 +177,7 @@ Card(
 Card(
   hoverEffect: CardHoverEffect.none,
   children: [
-    CardContent(children: [text('Static info card')]),
+    CardContent(children: [.text('Static info card')]),
   ],
 )
 
@@ -197,7 +185,7 @@ Card(
 Card(
   hoverEffect: CardHoverEffect.glow,
   children: [
-    CardContent(children: [text('Interactive card')]),
+    CardContent(children: [.text('Interactive card')]),
   ],
 )
 
@@ -205,7 +193,7 @@ Card(
 Card(
   hoverEffect: CardHoverEffect.scale,
   children: [
-    CardContent(children: [text('Primary action card')]),
+    CardContent(children: [.text('Primary action card')]),
   ],
 )
 

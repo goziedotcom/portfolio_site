@@ -4,6 +4,7 @@
 
 import 'dart:async';
 
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:universal_web/web.dart' as web;
 
@@ -22,54 +23,48 @@ Component TFormField({
   String? pattern,
   String? errorMessage,
 }) {
-  return div(
-    classes: 'space-y-2',
-    [
-      // Label
-      label(
-        attributes: {'for': id},
-        classes: 'block text-sm font-medium text-foreground',
-        [text('$labelText${isRequired ? ' *' : ''}')],
-      ),
+  return div(classes: 'space-y-2', [
+    // Label
+    label(
+      attributes: {'for': id},
+      classes: 'block text-sm font-medium text-foreground',
+      [.text('$labelText${isRequired ? ' *' : ''}')],
+    ),
 
-      // Input field
-      input(
-        id: id,
-        name: id,
-        type: InputType.values.firstWhere(
-          (t) => t.name == type,
-          orElse: () => InputType.text,
-        ),
-        classes:
-            'w-full px-4 py-3 rounded-lg border border-border bg-input text-foreground placeholder:text-muted-foreground transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
-        // value: value,
-        disabled: disabled,
-        attributes: {
-          'placeholder': placeholder,
-          if (isRequired) 'required': 'required',
-          if (autocomplete != null) 'autocomplete': autocomplete,
-          if (maxLength != null) 'maxlength': '$maxLength',
-          if (minLength != null) 'minlength': '$minLength',
-          if (pattern != null) 'pattern': pattern,
-          if (errorMessage != null) 'aria-describedby': '${id}-error',
+    // Input field
+    input(
+      id: id,
+      name: id,
+      type: InputType.values.firstWhere(
+        (t) => t.name == type,
+        orElse: () => InputType.text,
+      ),
+      classes:
+          'w-full px-4 py-3 rounded-lg border border-border bg-input text-foreground placeholder:text-muted-foreground transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
+      // value: value,
+      disabled: disabled,
+      attributes: {
+        'placeholder': placeholder,
+        if (isRequired) 'required': 'required',
+        if (autocomplete != null) 'autocomplete': autocomplete,
+        if (maxLength != null) 'maxlength': '$maxLength',
+        if (minLength != null) 'minlength': '$minLength',
+        if (pattern != null) 'pattern': pattern,
+        if (errorMessage != null) 'aria-describedby': '${id}-error',
+      },
+      events: events(
+        onInput: (String? inputValue) {
+          onChanged?.call(inputValue);
         },
-        events: events(
-          onInput: (String? inputValue) {
-            onChanged?.call(inputValue);
-          },
-        ),
-        [],
       ),
+    ),
 
-      // Error message (if provided)
-      if (errorMessage != null)
-        div(
-          id: '${id}-error',
-          classes: 'text-sm text-destructive',
-          [text(errorMessage)],
-        ),
-    ],
-  );
+    // Error message (if provided)
+    if (errorMessage != null)
+      div(id: '${id}-error', classes: 'text-sm text-destructive', [
+        .text(errorMessage),
+      ]),
+  ]);
 }
 
 // ============================================================================
@@ -139,9 +134,9 @@ class _TTextAreaFieldState extends State<TTextAreaField> {
   void _setupFormResetListener() {
     if (!kIsWeb) return;
 
-    _resetSubscription = web.EventStreamProvider<web.Event>('formReset')
-        .forTarget(web.window)
-        .listen((_) => _resetTextArea());
+    _resetSubscription = web.EventStreamProvider<web.Event>(
+      'formReset',
+    ).forTarget(web.window).listen((_) => _resetTextArea());
   }
 
   // ============================================================================
@@ -158,7 +153,9 @@ class _TTextAreaFieldState extends State<TTextAreaField> {
   void _handleInput(String newValue) {
     // If maxWords is set, check word count before updating
     if (component.maxWords != null) {
-      final wordCount = newValue.trim().isEmpty ? 0 : newValue.trim().split(RegExp(r'\s+')).length;
+      final wordCount = newValue.trim().isEmpty
+          ? 0
+          : newValue.trim().split(RegExp(r'\s+')).length;
 
       // If over word limit and user added a space (completed a word), reject
       if (wordCount > component.maxWords! && newValue.endsWith(' ')) {
@@ -203,7 +200,8 @@ class _TTextAreaFieldState extends State<TTextAreaField> {
   }
 
   bool get _isOverLimit {
-    if (component.maxLength != null && _currentValue.length > component.maxLength!) {
+    if (component.maxLength != null &&
+        _currentValue.length > component.maxLength!) {
       return true;
     }
     if (component.maxWords != null && _wordCount > component.maxWords!) {
@@ -220,7 +218,7 @@ class _TTextAreaFieldState extends State<TTextAreaField> {
     return label(
       attributes: {'for': component.id},
       classes: 'block text-sm font-medium text-foreground',
-      [text('${component.labelText}${component.isRequired ? ' *' : ''}')],
+      [.text('${component.labelText}${component.isRequired ? ' *' : ''}')],
     );
   }
 
@@ -237,11 +235,10 @@ class _TTextAreaFieldState extends State<TTextAreaField> {
       minLength: component.minLength,
       attributes: {
         if (component.maxLength != null) 'maxlength': '${component.maxLength}',
-        if (component.errorMessage != null) 'aria-describedby': '${component.id}-error',
+        if (component.errorMessage != null)
+          'aria-describedby': '${component.id}-error',
       },
-      events: events(
-        onInput: _handleInput,
-      ),
+      events: events(onInput: _handleInput),
       [],
     );
   }
@@ -252,7 +249,7 @@ class _TTextAreaFieldState extends State<TTextAreaField> {
     return div(
       id: '${component.id}-error',
       classes: 'text-sm text-destructive',
-      [text(component.errorMessage!)],
+      [.text(component.errorMessage!)],
     );
   }
 
@@ -266,20 +263,17 @@ class _TTextAreaFieldState extends State<TTextAreaField> {
         'text-xs text-right transition-colors',
         if (_isOverLimit) 'text-destructive' else 'text-muted-foreground',
       ].join(' '),
-      [text(_countDisplay)],
+      [.text(_countDisplay)],
     );
   }
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
-      classes: 'space-y-2',
-      [
-        _buildLabel(),
-        _buildTextArea(),
-        _buildErrorMessage(),
-        _buildCountDisplay(),
-      ],
-    );
+  Component build(BuildContext context) {
+    return div(classes: 'space-y-2', [
+      _buildLabel(),
+      _buildTextArea(),
+      _buildErrorMessage(),
+      _buildCountDisplay(),
+    ]);
   }
 }

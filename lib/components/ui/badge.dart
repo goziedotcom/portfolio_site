@@ -1,10 +1,16 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
 enum BadgeVariant {
-  primary('border-transparent bg-primary text-primary-foreground hover:bg-primary/80'),
-  secondary('border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80'),
+  primary(
+    'border-transparent bg-primary text-primary-foreground hover:bg-primary/80',
+  ),
+  secondary(
+    'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
+  ),
   destructive(
-      'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80'),
+    'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
+  ),
   outline('text-foreground border-border');
 
   const BadgeVariant(this.classes);
@@ -30,12 +36,13 @@ class Badge extends StatelessComponent {
   });
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
+  Component build(BuildContext context) {
     final baseClasses =
         'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
-    final classes = '$baseClasses ${variant.classes} ${additionalClasses ?? ''}';
+    final classes =
+        '$baseClasses ${variant.classes} ${additionalClasses ?? ''}';
 
-    yield div(
+    return div(
       classes: classes,
       styles: Styles(raw: styles),
       attributes: attributes,
@@ -44,7 +51,6 @@ class Badge extends StatelessComponent {
     );
   }
 }
-
 
 // Alternative simpler Badge component for prefer less functionality
 class SimpleBadge extends StatelessComponent {
@@ -79,16 +85,16 @@ class SimpleBadge extends StatelessComponent {
   }
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
+  Component build(BuildContext context) {
     final baseClasses =
         'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
     final classes = '$baseClasses $_variantClasses ${additionalClasses ?? ''}';
 
-    yield div(
+    return div(
       classes: classes,
       styles: Styles(raw: styles),
       events: onTap != null ? {'click': (event) => onTap!()} : null,
-      [text(textString)],
+      [.text(textString)],
     );
   }
 }

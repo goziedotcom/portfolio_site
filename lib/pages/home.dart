@@ -20,14 +20,14 @@ class Home extends StatelessComponent {
   final List<Article> articles;
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    
-    
-    yield HeroSection();
-    yield ServicesSection();
-    yield TechnologiesSection();
-    yield ProjectsSection(projects: projects);
-    yield ArticlesSection(articles: articles);
-    yield ContactSection();
+  Component build(BuildContext context) {
+    return Component.fragment([
+      HeroSection(),
+      ServicesSection(),
+      TechnologiesSection(),
+      ProjectsSection(projects: projects),
+      ArticlesSection(articles: articles),
+      ContactSection(),
+    ]);
   }
 }

@@ -92,35 +92,32 @@ enum ProjectStatus {
 
 // Extension for List<Project> operations
 extension ProjectListExtensions on List<Project> {
-  
   /// Get featured projects sorted by creation date (newest first)
-  List<Project> get featuredProjects => 
-      where((project) => project.isFeatured)
-          .toList()
-          ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+  List<Project> get featuredProjects =>
+      where((project) => project.isFeatured).toList()
+        ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
   /// Get all projects sorted by featured first, then by creation date (newest first)
-  List<Project> get latestProjects =>
-      toList()..sort((a, b) {
-        // Featured projects come first
-        if (a.isFeatured && !b.isFeatured) return -1;
-        if (!a.isFeatured && b.isFeatured) return 1;
-        // Then sort by creation date (newest first)
-        return b.createdAt.compareTo(a.createdAt);
-      });
+  List<Project> get latestProjects => toList()
+    ..sort((a, b) {
+      // Featured projects come first
+      if (a.isFeatured && !b.isFeatured) return -1;
+      if (!a.isFeatured && b.isFeatured) return 1;
+      // Then sort by creation date (newest first)
+      return b.createdAt.compareTo(a.createdAt);
+    });
 
   /// Get non-featured projects sorted by creation date (newest first)
   List<Project> get nonFeaturedProjects =>
-      where((project) => !project.isFeatured)
-          .toList()
-          ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      where((project) => !project.isFeatured).toList()
+        ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
   /// Get projects by category sorted by featured first, then by creation date
   List<Project> getProjectsByCategory(String category) {
-    final filtered = category.toLowerCase() == 'all' 
-        ? this 
+    final filtered = category.toLowerCase() == 'all'
+        ? this
         : where((project) => project.category == category).toList();
-    
+
     return filtered..sort((a, b) {
       // Featured projects come first
       if (a.isFeatured && !b.isFeatured) return -1;
@@ -139,78 +136,71 @@ extension ProjectListExtensions on List<Project> {
 
   /// Get projects by technology
   List<Project> getProjectsByTechnology(String technology) {
-    return where((project) => project.technologies.contains(technology))
-        .toList()
-        ..sort((a, b) {
-          // Featured projects come first
-          if (a.isFeatured && !b.isFeatured) return -1;
-          if (!a.isFeatured && b.isFeatured) return 1;
-          // Then sort by creation date (newest first)
-          return b.createdAt.compareTo(a.createdAt);
-        });
+    return where(
+      (project) => project.technologies.contains(technology),
+    ).toList()..sort((a, b) {
+      // Featured projects come first
+      if (a.isFeatured && !b.isFeatured) return -1;
+      if (!a.isFeatured && b.isFeatured) return 1;
+      // Then sort by creation date (newest first)
+      return b.createdAt.compareTo(a.createdAt);
+    });
   }
 
   /// Get projects by status
   List<Project> getProjectsByStatus(ProjectStatus status) {
-    return where((project) => project.status == status)
-        .toList()
-        ..sort((a, b) {
-          // Featured projects come first
-          if (a.isFeatured && !b.isFeatured) return -1;
-          if (!a.isFeatured && b.isFeatured) return 1;
-          // Then sort by creation date (newest first)
-          return b.createdAt.compareTo(a.createdAt);
-        });
+    return where((project) => project.status == status).toList()..sort((a, b) {
+      // Featured projects come first
+      if (a.isFeatured && !b.isFeatured) return -1;
+      if (!a.isFeatured && b.isFeatured) return 1;
+      // Then sort by creation date (newest first)
+      return b.createdAt.compareTo(a.createdAt);
+    });
   }
 
   /// Get public projects only
   List<Project> get publicProjects =>
-      where((project) => project.isGithubPublic)
-          .toList()
-          ..sort((a, b) {
-            // Featured projects come first
-            if (a.isFeatured && !b.isFeatured) return -1;
-            if (!a.isFeatured && b.isFeatured) return 1;
-            // Then sort by creation date (newest first)
-            return b.createdAt.compareTo(a.createdAt);
-          });
+      where((project) => project.isGithubPublic).toList()..sort((a, b) {
+        // Featured projects come first
+        if (a.isFeatured && !b.isFeatured) return -1;
+        if (!a.isFeatured && b.isFeatured) return 1;
+        // Then sort by creation date (newest first)
+        return b.createdAt.compareTo(a.createdAt);
+      });
 
   /// Get completed projects only
   List<Project> get completedProjects =>
-      where((project) => project.status == ProjectStatus.completed)
-          .toList()
-          ..sort((a, b) {
-            // Featured projects come first
-            if (a.isFeatured && !b.isFeatured) return -1;
-            if (!a.isFeatured && b.isFeatured) return 1;
-            // Then sort by creation date (newest first)
-            return b.createdAt.compareTo(a.createdAt);
-          });
+      where((project) => project.status == ProjectStatus.completed).toList()
+        ..sort((a, b) {
+          // Featured projects come first
+          if (a.isFeatured && !b.isFeatured) return -1;
+          if (!a.isFeatured && b.isFeatured) return 1;
+          // Then sort by creation date (newest first)
+          return b.createdAt.compareTo(a.createdAt);
+        });
 
   /// Get recent projects (last 6 months)
   List<Project> get recentProjects {
     final sixMonthsAgo = DateTime.now().subtract(const Duration(days: 180));
-    return where((project) => project.createdAt.isAfter(sixMonthsAgo))
-        .toList()
-        ..sort((a, b) {
-          // Featured projects come first
-          if (a.isFeatured && !b.isFeatured) return -1;
-          if (!a.isFeatured && b.isFeatured) return 1;
-          // Then sort by creation date (newest first)
-          return b.createdAt.compareTo(a.createdAt);
-        });
+    return where((project) => project.createdAt.isAfter(sixMonthsAgo)).toList()
+      ..sort((a, b) {
+        // Featured projects come first
+        if (a.isFeatured && !b.isFeatured) return -1;
+        if (!a.isFeatured && b.isFeatured) return 1;
+        // Then sort by creation date (newest first)
+        return b.createdAt.compareTo(a.createdAt);
+      });
   }
 
   /// Get projects from a specific year
   List<Project> getProjectsByYear(int year) {
-    return where((project) => project.createdAt.year == year)
-        .toList()
-        ..sort((a, b) {
-          // Featured projects come first
-          if (a.isFeatured && !b.isFeatured) return -1;
-          if (!a.isFeatured && b.isFeatured) return 1;
-          // Then sort by creation date (newest first)
-          return b.createdAt.compareTo(a.createdAt);
-        });
+    return where((project) => project.createdAt.year == year).toList()
+      ..sort((a, b) {
+        // Featured projects come first
+        if (a.isFeatured && !b.isFeatured) return -1;
+        if (!a.isFeatured && b.isFeatured) return 1;
+        // Then sort by creation date (newest first)
+        return b.createdAt.compareTo(a.createdAt);
+      });
   }
 }

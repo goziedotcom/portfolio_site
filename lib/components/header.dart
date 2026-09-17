@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:jaspr_router/jaspr_router.dart';
@@ -36,9 +37,7 @@ class _HeaderState extends State<Header> {
 
   void _setupScrollListener() {
     _scrollSubscription = web.EventStreamProviders.scrollEvent
-        .forTarget(
-          web.window,
-        )
+        .forTarget(web.window)
         .listen(_handleScroll);
   }
 
@@ -64,55 +63,46 @@ class _HeaderState extends State<Header> {
   }
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
+  Component build(BuildContext context) {
     // Watch theme state for the toggle button
     final themeMode = context.watch(themeProvider);
     final isDark = context.watch(isDarkProvider);
     final notifier = context.read(themeProvider.notifier);
     final activePath = context.url;
 
-    yield header(
+    return header(
       id: 'main-header', // Important: ID for JS targeting
       classes: [
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         _headerClass, // Dynamic classes from JavaScript
       ].join(' '),
       [
-        div(
-          classes: 'container mx-auto px-4 sm:px-6 lg:px-8',
-          [
-            div(
-              classes: 'flex items-center justify-between h-16',
-              [
-                // Logo with enhanced styling
-                _buildLogo(),
+        div(classes: 'container mx-auto px-4 sm:px-6 lg:px-8', [
+          div(classes: 'flex items-center justify-between h-16', [
+            // Logo with enhanced styling
+            _buildLogo(),
 
-                // Desktop navigation
-                _buildDesktopNavigation(activePath),
+            // Desktop navigation
+            _buildDesktopNavigation(activePath),
 
-                // Right side controls
-                div(
-                  classes: 'flex items-center space-x-4',
-                  [
-                    // Enhanced theme toggle
-                    if (kIsWeb)
-                      SlidingThemeToggle(
-                        themeMode: themeMode,
-                        isDark: isDark,
-                        onToggle: notifier.toggleTheme,
-                      ),
-
-                    // Enhanced mobile menu button
-                    _buildMobileMenuButton(),
-                  ],
+            // Right side controls
+            div(classes: 'flex items-center space-x-4', [
+              // Enhanced theme toggle
+              if (kIsWeb)
+                SlidingThemeToggle(
+                  themeMode: themeMode,
+                  isDark: isDark,
+                  onToggle: notifier.toggleTheme,
                 ),
-              ],
-            ),
 
-            // Enhanced mobile menu
-            _buildMobileMenu(activePath),
-          ],
-        ),
+              // Enhanced mobile menu button
+              _buildMobileMenuButton(),
+            ]),
+          ]),
+
+          // Enhanced mobile menu
+          _buildMobileMenu(activePath),
+        ]),
       ],
     );
   }
@@ -120,26 +110,20 @@ class _HeaderState extends State<Header> {
   Component _buildLogo() {
     return Link(
       to: '/',
-      child: div(
-        classes: 'flex-shrink-0',
-        [
-          span(
-            classes: 'text-2xl font-bold font-display gradient-text hover-scale',
-            [text('Gozie')],
-          ),
-        ],
-      ),
+      child: div(classes: 'flex-shrink-0', [
+        span(
+          classes: 'text-2xl font-bold font-display gradient-text hover-scale',
+          [.text('Gozie')],
+        ),
+      ]),
     );
   }
 
   Component _buildDesktopNavigation(String activePath) {
-    return nav(
-      classes: 'hidden md:flex items-center space-x-8',
-      [
-        for (var entry in SiteConfig.navLinks.entries)
-          _buildDesktopNavLink(entry.key, entry.value, activePath),
-      ],
-    );
+    return nav(classes: 'hidden md:flex items-center space-x-8', [
+      for (var entry in SiteConfig.navLinks.entries)
+        _buildDesktopNavLink(entry.key, entry.value, activePath),
+    ]);
   }
 
   Component _buildDesktopNavLink(String label, String href, String activePath) {
@@ -150,7 +134,7 @@ class _HeaderState extends State<Header> {
           'text-foreground/80 hover:text-primary transition-colors duration-300 font-medium relative group',
       to: isActive ? 'javascript:void(0)' : href,
       children: [
-        text(label),
+        .text(label),
         // Animated underline
         span(
           classes:
@@ -160,7 +144,7 @@ class _HeaderState extends State<Header> {
       ],
     );
   }
-  
+
   Component _buildMobileMenuButton() {
     return button(
       classes:
@@ -171,7 +155,7 @@ class _HeaderState extends State<Header> {
       },
       events: {'click': (e) => _toggleMenu()},
       [
-        span(classes: 'sr-only', [text('Toggle menu')]),
+        span(classes: 'sr-only', [.text('Toggle menu')]),
         _buildHamburgerIcon(),
       ],
     );
@@ -205,17 +189,12 @@ class _HeaderState extends State<Header> {
         ? div(
             classes:
                 'md:hidden absolute top-16 left-0 right-0 glass border-t border-border animate-fade-in-down',
-            attributes: {
-              'aria-hidden': (!_isMenuOpen).toString(),
-            },
+            attributes: {'aria-hidden': (!_isMenuOpen).toString()},
             [
-              nav(
-                classes: 'px-4 py-6 space-y-4',
-                [
-                  for (var entry in SiteConfig.navLinks.entries)
-                    _buildMobileNavLink(entry.key, entry.value, activePath),
-                ],
-              ),
+              nav(classes: 'px-4 py-6 space-y-4', [
+                for (var entry in SiteConfig.navLinks.entries)
+                  _buildMobileNavLink(entry.key, entry.value, activePath),
+              ]),
             ],
           )
         : div(classes: 'hidden', []);
@@ -228,10 +207,8 @@ class _HeaderState extends State<Header> {
       classes:
           'block text-foreground/80 hover:text-primary transition-colors duration-300 font-medium py-2 px-4 rounded-lg hover:bg-secondary/50 ${isActive ? 'text-primary bg-primary/10' : ''}',
       href: isActive ? 'javascript:void(0)' : href,
-      events: {
-        'click': (e) => setState(() => _isMenuOpen = false),
-      },
-      [text(label)],
+      events: {'click': (e) => setState(() => _isMenuOpen = false)},
+      [.text(label)],
     );
   }
 }

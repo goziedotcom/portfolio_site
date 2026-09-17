@@ -1,22 +1,11 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:portfolio_site/components/ui/icon.dart';
 
 // Button variant enums
-enum ButtonVariant {
-  primary,
-  destructive,
-  outline,
-  secondary,
-  ghost,
-  link,
-}
+enum ButtonVariant { primary, destructive, outline, secondary, ghost, link }
 
-enum ButtonSize {
-  small,
-  medium,
-  large,
-  icon,
-}
+enum ButtonSize { small, medium, large, icon }
 
 class TButton extends StatelessComponent {
   final String? text;
@@ -152,7 +141,7 @@ class TButton extends StatelessComponent {
   }
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
+  Component build(BuildContext context) {
     // Base classes - Web3 styling with less rounded corners
     String baseClasses =
         'inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
@@ -190,7 +179,7 @@ class TButton extends StatelessComponent {
       ...?customAttributes,
     };
 
-    yield button(
+    return button(
       classes: finalClasses,
       type: type,
       disabled: disabled,
@@ -199,7 +188,10 @@ class TButton extends StatelessComponent {
       onClick: disabled ? null : onClick,
       [
         // Render children or default content
-        if (children != null) ...children! else ..._buildDefaultContent(_getIconSize()),
+        if (children != null)
+          ...children!
+        else
+          ..._buildDefaultContent(_getIconSize()),
       ],
     );
   }
@@ -290,7 +282,7 @@ class TButton extends StatelessComponent {
 
     // Add text if provided and not icon-only
     if (text != null && !iconOnly) {
-      content.add(Text(text!));
+      content.add(.text(text!));
     }
 
     return content;
