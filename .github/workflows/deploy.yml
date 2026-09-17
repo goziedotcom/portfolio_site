@@ -68,7 +68,7 @@ jobs:
           EOF
           
       - name: Activate Jaspr CLI
-        run: dart pub global activate jaspr_cli
+        run: dart pub global activate jaspr_cli 0.19.1
         
       - name: Build Jaspr app
         run: jaspr build --verbose
