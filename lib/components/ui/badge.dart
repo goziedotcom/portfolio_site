@@ -38,7 +38,7 @@ class Badge extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final baseClasses =
-        'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
+        'inline-flex items-center whitespace-nowrap shrink-0 justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
     final classes =
         '$baseClasses ${variant.classes} ${additionalClasses ?? ''}';
 
@@ -87,7 +87,7 @@ class SimpleBadge extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final baseClasses =
-        'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
+        'inline-flex items-center whitespace-nowrap shrink-0 justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
     final classes = '$baseClasses $_variantClasses ${additionalClasses ?? ''}';
 
     return div(
